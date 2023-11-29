@@ -1,16 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
 
-<?import javafx.scene.control.Button?>
-<VBox alignment="CENTER" spacing="20.0" xmlns:fx="http://javafx.com/fxml"
-      fx:controller="com.example.mytunes.MyTunesController">
-    <padding>
-        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
-    </padding>
-
-    <Label fx:id="welcomeText"/>
-    <Button text="Hello!" onAction="#onHelloButtonClick"/>
-</VBox>
+<AnchorPane maxHeight="483.0" maxWidth="868.0" minHeight="483.0" minWidth="868.0" prefHeight="483.0" prefWidth="868.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <ImageView fitHeight="493.0" fitWidth="868.0" layoutY="-3.0">
+         <image>
+            <Image url="@image.png" />
+         </image>
+      </ImageView>
+      <TableView fx:id="songsPlayList" layoutX="598.0" layoutY="130.0" prefHeight="297.0" prefWidth="178.0" rotate="13.0" style="-fx-background-color: transparent;">
+        <columns>
+          <TableColumn prefWidth="51.87792348861694" text="Title" />
+          <TableColumn prefWidth="59.25688552856445" text="Artist" />
+            <TableColumn minWidth="0.0" prefWidth="26.859466552734375" text="Category" />
+            <TableColumn prefWidth="105.07534790039062" text="Time" />
+        </columns>
+      </TableView>
+      <TableView fx:id="playlistTableView" layoutX="86.0" layoutY="153.0" prefHeight="251.0" prefWidth="178.0" rotate="-16.0" style="-fx-background-color: transparent;">
+        <columns>
+          <TableColumn prefWidth="64.59131050109863" text="Name" />
+          <TableColumn prefWidth="58.509971618652344" text="Songs" />
+            <TableColumn prefWidth="78.37081909179688" text="Time" />
+        </columns>
+      </TableView>
+      <ListView layoutX="296.0" layoutY="13.0" prefHeight="207.0" prefWidth="214.0" style="-fx-background-color: transparent;" />
+      <ImageView fitHeight="29.0" fitWidth="30.0" layoutX="405.0" layoutY="386.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../../../../../../../Pictures/next.png" />
+         </image>
+      </ImageView>
+   </children>
+</AnchorPane>
