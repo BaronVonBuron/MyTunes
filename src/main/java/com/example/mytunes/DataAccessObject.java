@@ -22,10 +22,10 @@ public class DataAccessObject {
     public void doSomething(String s){
         try {
             Statement database = con.createStatement();
-            database.executeQuery(s);
+            database.executeUpdate(s);
             System.out.println("Statement: "+s+" Has been executed.");
         } catch (SQLException e) {
-            System.out.println("Can't do requested statement: "+s+ " Because: "+ e.getErrorCode() + e.getMessage());
+            System.out.println("Can't do requested statement: "+s+ " Code: "+ e.getErrorCode()+" Because: " + e.getMessage());
         }
     }
 
@@ -54,10 +54,11 @@ public class DataAccessObject {
             ResultSet rs = database.executeQuery(s);
             while (rs.next()){
                 String title = rs.getString("title");
-                String author = rs.getString("author");
+                String artist = rs.getString("artist");
                 String genre = rs.getString("genre");
+                int duration = rs.getInt("duration");
                 int ID = rs.getInt("ID");
-                songs.add(new Song(title, author, genre, ID));
+                songs.add(new Song(title, artist, genre, ID, duration));
             }
             System.out.println("Statement: "+s+" Has been executed.");
         } catch (SQLException e) {
@@ -82,10 +83,11 @@ public class DataAccessObject {
                 ResultSet rs1 = database.executeQuery(sql);
                 while (rs1.next()){
                     String title = rs1.getString("title");
-                    String author = rs1.getString("author");
+                    String artist = rs1.getString("artist");
                     String genre = rs1.getString("genre");
+                    int duration = rs1.getInt("duration");
                     int ID = rs1.getInt("ID");
-                    songsinPL.add(new Song(title, author, genre, ID));
+                    songsinPL.add(new Song(title, artist, genre, ID, duration));
                 }
             }
             System.out.println("Statement: "+s+" Has been executed.");
@@ -95,8 +97,8 @@ public class DataAccessObject {
         return songsinPL;
     }
 
-    public void saveSong(String songTitle, String songAuthor, String songGenre){
-        String s = "INSERT INTO Song (title, author, genre) VALUES ('"+songTitle+"', '"+songAuthor+"', '"+songGenre+"')";
+    public void saveSong(String songTitle, String songArtist, String songGenre){
+        String s = "INSERT INTO Song (title, artist, genre) VALUES ('"+songTitle+"', '"+songArtist+"', '"+songGenre+"')";
         doSomething(s);
     }
 

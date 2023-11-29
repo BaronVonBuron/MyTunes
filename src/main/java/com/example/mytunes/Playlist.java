@@ -1,14 +1,32 @@
 package com.example.mytunes;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Playlist {
 
     private String name;
     private List<Song> songs;
+    private int duration;
 
     public Playlist(String name) {
         this.name = name;
+        songs = new ArrayList<>();
+        this.duration = setDuration();
+    }
+
+    public int getDuration() {
+        return duration;
+    }
+
+    private int setDuration() {
+        int totalDuration = 0;
+        if (!songs.isEmpty()){
+            for (Song s : songs) {
+                totalDuration += s.getDuration();
+            }
+            return totalDuration;
+        }else return totalDuration;
     }
 
 
