@@ -1,63 +1,117 @@
 package com.example.mytunes;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Label;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 
 
 public class MyTunesController {
 
+    private ObservableList allSongs, allPlaylists;
+
+    private final Logic logic = new Logic();
     @FXML
-    private Label welcomeText;
+    private TableView<Song> AllSongs  = new TableView<>();
+    @FXML
+    private TableColumn<Song, String> Title = new TableColumn<>();
+    @FXML
+    private TableColumn<Song, String> Artist = new TableColumn<>();
+    @FXML
+    private TableColumn<Song, String> Category = new TableColumn<>();
+    @FXML
+    private TableColumn<Song, String> Time = new TableColumn<>();
 
     @FXML
-    protected void onHelloButtonClick() {
-        welcomeText.setText("Welcome to JavaFX Application!");
+    private TableView AllPlaylists = new TableView<>();
+    @FXML
+    private TableColumn<Playlist, String> Name = new TableColumn<>();
+    @FXML
+    private TableColumn<Integer, String> numberOfSongsInPlaylist = new TableColumn<>();
+    @FXML
+    private TableColumn<Integer, String> playlistDuration = new TableColumn<>();
+
+    public void initialize(){
+        System.out.println("Controller initialized");
+        updateTables();
     }
 
+    public void updateTables(){
+        this.allSongs = FXCollections.observableList(logic.getSongs());
+        this.allPlaylists = FXCollections.observableList(logic.getPlaylists());
+        AllSongs.setItems(allSongs);
+        AllPlaylists.setItems(allPlaylists);
+
+        Title.setCellValueFactory(new PropertyValueFactory<>("title"));
+        Artist.setCellValueFactory(new PropertyValueFactory<>("artist"));
+        Category.setCellValueFactory(new PropertyValueFactory<>("genre"));
+        Time.setCellValueFactory(new PropertyValueFactory<>("duration"));
+
+
+        Name.setCellValueFactory(new PropertyValueFactory<>("name"));
+        numberOfSongsInPlaylist.setCellValueFactory(new PropertyValueFactory<>("songs"));
+        playlistDuration.setCellValueFactory(new PropertyValueFactory<>("duration"));
+
+        AllSongs.refresh();
+        AllPlaylists.refresh();
+    }
+
+    @FXML
     public void playButtonPressed(MouseEvent mouseEvent) {
+        logic.play();
     }
-
+    @FXML
     public void forwardButtonPressed(MouseEvent mouseEvent) {
+        logic.nextSong();
     }
-
+    @FXML
     public void backwardsButtonPressed(MouseEvent mouseEvent) {
+        logic.replayOrGoBack();
     }
-
+    @FXML
     public void newPlaylistButtonPressed(ActionEvent event) {
+        logic.createPlaylist();
+        updateTables();
     }
-
+    @FXML
     public void editPlaylistButtonPressed(ActionEvent event) {
+        logic.editPlaylist((Playlist) AllPlaylists.getSelectionModel().getSelectedItem());
     }
-
+    @FXML
     public void deletePlaylistButtonPressed(ActionEvent event) {
     }
-
+    @FXML
     public void listviewDownButtonPressed(ActionEvent event) {
     }
-
+    @FXML
     public void listviewUpButtonPressed(ActionEvent event) {
     }
-
+    @FXML
     public void deleteSongLWButtonPressed(ActionEvent event) {
     }
-
+    @FXML
     public void newSongButtonPressed(ActionEvent event) {
+        logic.createSong();
+        updateTables();
     }
-
+    @FXML
     public void editSongButtonPressed(ActionEvent event) {
+        logic.editSong((Song) AllSongs.getSelectionModel().getSelectedItem());
     }
-
+    @FXML
     public void deleteSongButtonPressed(ActionEvent event) {
     }
-
+    @FXML
     public void volumeDownButtonPressed(MouseEvent mouseEvent) {
     }
-
+    @FXML
     public void VolumeUpButtonPressed(MouseEvent mouseEvent) {
     }
-
+    @FXML
     public void muteButtonPressed(MouseEvent mouseEvent) {
     }
 }

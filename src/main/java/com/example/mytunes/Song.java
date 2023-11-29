@@ -1,15 +1,27 @@
 package com.example.mytunes;
 
+import javafx.util.Duration;
+
 public class Song {
 
     private int ID;
-    private String title, author, genre;
+    private int duration;
+    private String title, artist, genre;
 
-    public Song(String title, String author, String genre, int ID) {
+    public Song(String title, String artist, String genre, int ID, int duration) {
         this.ID = ID;
         this.title = title;
-        this.author = author;
+        this.artist = artist;
         this.genre = genre;
+        this.duration = duration;
+    }
+
+    public int getDuration() {
+        return duration;
+    }
+
+    public void setDuration(int duration) {
+        this.duration = duration;
     }
 
     public int getID() {
@@ -24,12 +36,12 @@ public class Song {
         this.title = title;
     }
 
-    public String getAuthor() {
-        return author;
+    public String getArtist() {
+        return artist;
     }
 
-    public void setAuthor(String author) {
-        this.author = author;
+    public void setArtist(String artist) {
+        this.artist = artist;
     }
 
     public String getGenre() {
@@ -46,7 +58,7 @@ public class Song {
         return "Song{" +
                 " ID= " + ID +
                 ", title= '" + title + '\'' +
-                ", author= '" + author + '\'' +
+                ", author= '" + artist + '\'' +
                 ", genre= '" + genre + '\'' +
                 '}';
     }
