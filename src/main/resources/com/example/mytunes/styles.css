@@ -1,0 +1,8 @@
+.table-view {
+    -fx-background-color: BLACK;
+}
+
+/* Set specific column background to transparent if needed */
+.table-row-cell {
+    -fx-background-color: transparent;
+}

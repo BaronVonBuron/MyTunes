@@ -1,63 +1,68 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.effect.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.shape.*?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.Slider?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.effect.Glow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Circle?>
 
-<AnchorPane maxHeight="505.0" maxWidth="886.0" minHeight="483.0" minWidth="868.0" prefHeight="488.0" prefWidth="869.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.mytunes.MyTunesController">
+<AnchorPane maxHeight="564.0" maxWidth="975.0" minHeight="483.0" minWidth="868.0" prefHeight="564.0" prefWidth="975.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.mytunes.MyTunesController">
    <children>
-      <ImageView fitHeight="499.0" fitWidth="874.0" layoutX="-5.0" layoutY="-11.0">
+      <ImageView fitHeight="577.0" fitWidth="984.0" layoutX="-5.0" layoutY="-11.0">
          <image>
             <Image url="@image.png" />
          </image>
       </ImageView>
-      <TableView fx:id="AllSongs" layoutX="598.0" layoutY="130.0" prefHeight="297.0" prefWidth="178.0" rotate="13.0" style="-fx-background-color: transparent;">
+      <TableView fx:id="AllSongs" layoutX="706.0" layoutY="77.0" prefHeight="397.0" prefWidth="242.0" style="-fx-background-color: transparent;" styleClass="styles.css">
         <columns>
-          <TableColumn fx:id="Title" prefWidth="51.87792348861694" text="Title" />
-          <TableColumn fx:id="Artist" prefWidth="59.25688552856445" text="Artist" />
-            <TableColumn fx:id="Category" minWidth="0.0" prefWidth="26.859466552734375" text="Category" />
-            <TableColumn fx:id="Time" prefWidth="105.07534790039062" text="Time" />
+          <TableColumn fx:id="Title" prefWidth="84.00006103515625" style="-fx-background-color: transparent;" styleClass="styles.css" text="Title" />
+          <TableColumn fx:id="Artist" prefWidth="63.2000732421875" style="-fx-background-color: transparent;" styleClass="styles.css" text="Artist" />
+            <TableColumn fx:id="Category" minWidth="0.0" prefWidth="58.39990234375" style="-fx-background-color: transparent;" styleClass="styles.css" text="Category" />
+            <TableColumn fx:id="Time" prefWidth="32.0001220703125" style="-fx-background-color: transparent;" styleClass="styles.css" text="Time" />
         </columns>
       </TableView>
-      <TableView fx:id="AllPlaylists" layoutX="86.0" layoutY="153.0" prefHeight="251.0" prefWidth="178.0" rotate="-16.0" style="-fx-background-color: transparent;">
+      <TableView fx:id="AllPlaylists" layoutX="53.0" layoutY="300.0" prefHeight="159.0" prefWidth="198.0" style="-fx-background-color: transparent;" styleClass="styles.css" stylesheets="@styles.css">
         <columns>
-          <TableColumn fx:id="Name" prefWidth="64.59131050109863" text="Name" />
-          <TableColumn fx:id="numberOfSongsInPlaylist" prefWidth="58.509971618652344" text="Songs" />
-            <TableColumn fx:id="playlistDuration" prefWidth="78.37081909179688" text="Duration" />
+          <TableColumn fx:id="Name" prefWidth="84.00000762939453" styleClass="styles.css" text="Name" />
+          <TableColumn fx:id="numberOfSongsInPlaylist" prefWidth="44.0" styleClass="styles.css" text="Songs" />
+            <TableColumn fx:id="playlistDuration" prefWidth="78.4000244140625" styleClass="styles.css" text="Duration" />
         </columns>
       </TableView>
-      <ListView layoutX="296.0" layoutY="13.0" prefHeight="207.0" prefWidth="214.0" style="-fx-background-color: transparent;" />
-      <ImageView fx:id="playButton" fitHeight="38.0" fitWidth="28.0" layoutX="403.0" layoutY="430.0" onMouseClicked="#playButtonPressed" pickOnBounds="true" preserveRatio="true">
+      <ListView layoutX="328.0" layoutY="13.0" prefHeight="242.0" prefWidth="242.0" style="-fx-background-color: transparent;" />
+      <ImageView fx:id="playButton" fitHeight="38.0" fitWidth="28.0" layoutX="436.0" layoutY="517.0" onMouseClicked="#playButtonPressed" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@play.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="forwardButton" fitHeight="21.0" fitWidth="20.0" layoutX="443.0" layoutY="434.0" onMouseClicked="#forwardButtonPressed" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="forwardButton" fitHeight="21.0" fitWidth="20.0" layoutX="492.0" layoutY="522.0" onMouseClicked="#forwardButtonPressed" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@frem.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="backwardButton" fitHeight="20.0" fitWidth="28.0" layoutX="373.0" layoutY="434.0" onMouseClicked="#backwardsButtonPressed" pickOnBounds="true" preserveRatio="true" rotate="180.0">
+      <ImageView fx:id="backwardButton" fitHeight="20.0" fitWidth="28.0" layoutX="388.0" layoutY="522.0" onMouseClicked="#backwardsButtonPressed" pickOnBounds="true" preserveRatio="true" rotate="180.0">
          <image>
             <Image url="@tilbage.png" />
          </image>
       </ImageView>
-      <Circle fill="#1f93ff00" layoutX="453.0" layoutY="444.0" radius="14.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0" />
-      <Circle fill="#1f93ff00" layoutX="383.0" layoutY="444.0" radius="14.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0" />
-      <Circle fill="#1f93ff00" layoutX="417.0" layoutY="444.0" radius="18.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0" />
-      <Button fx:id="newPlaylistButton" layoutX="28.0" layoutY="241.0" mnemonicParsing="false" onAction="#newPlaylistButtonPressed" rotate="-16.0" style="-fx-background-color: BROWN;" text="New" textOverrun="CENTER_ELLIPSIS" />
-      <Button fx:id="editPlaylistButton" layoutX="38.0" layoutY="286.0" mnemonicParsing="false" onAction="#editPlaylistButtonPressed" rotate="-16.0" style="-fx-background-color: BROWN;" text="Edit" />
-      <Button fx:id="deletePlaylistButton" layoutX="38.0" layoutY="330.0" mnemonicParsing="false" onAction="#deletePlaylistButtonPressed" rotate="-16.0" style="-fx-background-color: BROWN;" text="Delete" />
-      <Button fx:id="listviewUpButton" layoutX="296.0" layoutY="220.0" mnemonicParsing="false" onAction="#listviewUpButtonPressed" style="-fx-background-color: BROWN;" text="↑" />
-      <Button fx:id="listviewDownButton" layoutX="356.0" layoutY="220.0" mnemonicParsing="false" onAction="#listviewDownButtonPressed" style="-fx-background-color: BROWN;" text="↓" />
-      <Button fx:id="deleteSongLWButton" layoutX="443.0" layoutY="220.0" mnemonicParsing="false" onAction="#deleteSongLWButtonPressed" style="-fx-background-color: BROWN;" text="Delete" />
-      <Button fx:id="newSongButton" layoutX="789.0" layoutY="220.0" mnemonicParsing="false" onAction="#newSongButtonPressed" rotate="13.0" style="-fx-background-color: Brown;" text="New" />
-      <Button fx:id="editSongButton" layoutX="775.0" layoutY="276.0" mnemonicParsing="false" onAction="#editSongButtonPressed" rotate="13.0" style="-fx-background-color: Brown;" text="Edit" />
-      <Button fx:id="deleteSongButton" layoutX="762.0" layoutY="336.0" mnemonicParsing="false" onAction="#deleteSongButtonPressed" rotate="13.0" style="-fx-background-color: Brown;" text="Delete" />
-      <Slider fx:id="playTimeSlider" blockIncrement="1.0" layoutX="347.0" layoutY="410.0">
+      <Circle fill="#1f93ff00" layoutX="500.0" layoutY="532.0" radius="14.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0" />
+      <Circle fill="#1f93ff00" layoutX="400.0" layoutY="532.0" radius="14.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0" />
+      <Circle fill="#1f93ff00" layoutX="450.0" layoutY="530.0" radius="18.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0" />
+      <Button fx:id="newPlaylistButton" layoutX="58.0" layoutY="171.0" mnemonicParsing="false" onAction="#newPlaylistButtonPressed" style="-fx-background-color: BROWN;" text="New" textOverrun="CENTER_ELLIPSIS" />
+      <Button fx:id="editPlaylistButton" layoutX="134.0" layoutY="171.0" mnemonicParsing="false" onAction="#editPlaylistButtonPressed" style="-fx-background-color: BROWN;" text="Edit" />
+      <Button fx:id="deletePlaylistButton" layoutX="200.0" layoutY="171.0" mnemonicParsing="false" onAction="#deletePlaylistButtonPressed" style="-fx-background-color: BROWN;" text="Delete" />
+      <Button fx:id="listviewUpButton" layoutX="328.0" layoutY="263.0" mnemonicParsing="false" onAction="#listviewUpButtonPressed" style="-fx-background-color: BROWN;" text="↑" />
+      <Button fx:id="listviewDownButton" layoutX="368.0" layoutY="263.0" mnemonicParsing="false" onAction="#listviewDownButtonPressed" style="-fx-background-color: BROWN;" text="↓" />
+      <Button fx:id="deleteSongLWButton" layoutX="519.0" layoutY="263.0" mnemonicParsing="false" onAction="#deleteSongLWButtonPressed" style="-fx-background-color: BROWN;" text="Delete" />
+      <Button fx:id="newSongButton" layoutX="706.0" layoutY="47.0" mnemonicParsing="false" onAction="#newSongButtonPressed" style="-fx-background-color: Brown;" text="New" />
+      <Button fx:id="editSongButton" layoutX="764.0" layoutY="47.0" mnemonicParsing="false" onAction="#editSongButtonPressed" style="-fx-background-color: Brown;" text="Edit" />
+      <Button fx:id="deleteSongButton" layoutX="897.0" layoutY="47.0" mnemonicParsing="false" onAction="#deleteSongButtonPressed" style="-fx-background-color: Brown;" text="Delete" />
+      <Slider fx:id="playTimeSlider" blockIncrement="1.0" layoutX="350.0" layoutY="483.0" prefWidth="200.0">
          <effect>
             <Glow level="1.0" />
          </effect>
@@ -65,24 +70,24 @@
             <Cursor fx:constant="DEFAULT" />
          </cursor>
       </Slider>
-      <Slider fx:id="volumeSlider" blockIncrement="1.0" layoutX="85.0" layoutY="422.0" />
-      <ImageView fx:id="volumedownButton" fitHeight="24.0" fitWidth="28.0" layoutX="104.0" layoutY="442.0" onMouseClicked="#volumeDownButtonPressed" pickOnBounds="true" preserveRatio="true">
+      <Slider fx:id="volumeSlider" blockIncrement="1.0" layoutX="60.0" layoutY="508.0" />
+      <ImageView fx:id="volumedownButton" fitHeight="24.0" fitWidth="28.0" layoutX="66.0" layoutY="534.0" onMouseClicked="#volumeDownButtonPressed" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@volumedown.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="volumeUpButton" fitHeight="24.0" fitWidth="59.0" layoutX="189.0" layoutY="443.0" onMouseClicked="#VolumeUpButtonPressed" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="volumeUpButton" fitHeight="24.0" fitWidth="59.0" layoutX="163.0" layoutY="534.0" onMouseClicked="#VolumeUpButtonPressed" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@volumeup.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="MuteButton" fitHeight="24.0" fitWidth="67.0" layoutX="143.0" layoutY="443.0" onMouseClicked="#muteButtonPressed" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="MuteButton" fitHeight="24.0" fitWidth="67.0" layoutX="116.0" layoutY="534.0" onMouseClicked="#muteButtonPressed" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@silent.png" />
          </image>
       </ImageView>
-      <Circle fill="#1f93ff00" layoutX="201.0" layoutY="455.0" radius="14.0" stroke="BLACK" strokeType="INSIDE" />
-      <Circle fill="#1f93ff00" layoutX="155.0" layoutY="455.0" radius="14.0" stroke="BLACK" strokeType="INSIDE" />
-      <Circle fill="#1f93ff00" layoutX="116.0" layoutY="455.0" radius="14.0" stroke="BLACK" strokeType="INSIDE" />
+      <Circle fill="#1f93ff00" layoutX="175.0" layoutY="546.0" radius="14.0" stroke="BLACK" strokeType="INSIDE" />
+      <Circle fill="#1f93ff00" layoutX="128.0" layoutY="546.0" radius="14.0" stroke="BLACK" strokeType="INSIDE" />
+      <Circle fill="#1f93ff00" layoutX="78.0" layoutY="546.0" radius="14.0" stroke="BLACK" strokeType="INSIDE" />
    </children>
 </AnchorPane>
