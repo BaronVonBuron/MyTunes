@@ -5,16 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8b120f27-024c-4e96-b92a-cd8ef0508cc4" name="Changes" comment="FRONT END med mouse events i FXML">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/mytunes/DialogWindow.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com/example/mytunes/styles.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/mytunes/DataAccessObject.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/mytunes/DataAccessObject.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/mytunes/Logic.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/mytunes/Logic.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/mytunes/MyTunesController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/mytunes/MyTunesController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/mytunes/Playlist.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/mytunes/Playlist.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/mytunes/Song.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/mytunes/Song.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/mytunes/MyTunesApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/mytunes/MyTunesApplication.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/mytunes/MyTunes.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/mytunes/MyTunes.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/mytunes/image.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/mytunes/image.png" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -25,6 +22,8 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Class" />
+        <option value="Kotlin Class" />
+        <option value="CSS File" />
       </list>
     </option>
   </component>
@@ -68,10 +67,11 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "AndersOnsdagAften",
+    "git-widget-placeholder": "master",
     "ignore.virus.scanning.warn.message": "true",
     "jdk.selected.JAVA_MODULE": "openjdk-21",
-    "last_opened_file_path": "C:/Users/andbu/OneDrive/Dokumenter/GitHub/MyTunes/src/main/mssql-jdbc-12.4.2.jre11.jar",
+    "last_opened_file_path": "C:/Users/damer/Desktop/mssql-jdbc-12.4.2.jre11.jar",
+    "list.type.of.created.stylesheet": "CSS",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -109,6 +109,7 @@
       <workItem from="1701181959933" duration="8861000" />
       <workItem from="1701245167250" duration="3905000" />
       <workItem from="1701282168436" duration="11429000" />
+      <workItem from="1701331793536" duration="3816000" />
     </task>
     <task id="LOCAL-00001" summary="Created DB and made some functions to save/load stuff from DB - everything untested.">
       <option name="closed" value="true" />
