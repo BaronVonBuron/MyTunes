@@ -8,6 +8,8 @@ package com.example.mytunes;
 
 import java.util.ArrayList;
 import java.util.List;
+import javafx.stage.Stage;
+import javafx.stage.Window;
 
 public class Logic {
     private DataAccessObject dao;
@@ -21,9 +23,9 @@ public class Logic {
         this.playlists = dao.returnAllPlaylists();
     }
 
-    public void saveSong(String title, String author, String genre){
+    public void saveSong(String title, String author, String genre, int duration, String filename){
         if (!title.isEmpty() && !author.isEmpty()) {
-            dao.saveSong(title, author, genre);
+            dao.saveSong(title, author, genre, duration, filename);
             this.songs = dao.returnAllSongs();
         }
     }
@@ -73,22 +75,34 @@ public class Logic {
     }
 
 
-    public void createSong() {
-        DialogWindow addSongDialog = new DialogWindow(false);
-        String songTitle = addSongDialog.getInputTitle();
-        String songAuthor = addSongDialog.getInputAuthor();
-        String songGenre = addSongDialog.getInputGenre();
+    public void createSong(Window window) {
+        DialogWindow dialogWindow = new DialogWindow(false, window);
 
-        if (songTitle != null && !songTitle.isEmpty() && songAuthor != null && !songAuthor.isEmpty() && songGenre != null && !songGenre.isEmpty()) {
-            System.out.println("Song added: " + songTitle + " by " + songAuthor + " (Genre: " + songGenre + ")");
-            saveSong(songTitle, songAuthor, songGenre);
+        String selectedFilePath = dialogWindow.getInputTitle();
+
+
+        if (selectedFilePath != null && !selectedFilePath.isEmpty()) {
+            DialogWindow dw = new DialogWindow(false, "title", "artist", "genre");
+            String title = dw.getInputTitle();
+            String artist = dw.getInputAuthor();
+            String genre = dw.getInputGenre();
+
+            if (title == null){
+                title = "";
+            }
+            if (artist == null){
+                artist = "";
+            }
+            if (genre == null){
+                genre = "";
+            }
+            saveSong(title, artist, genre, 0, selectedFilePath);
         }
-
     }
 
 
     public void editSong(Song song) {
-
+        DialogWindow dw = new DialogWindow(false, song.getTitle(), song.getArtist(), song.getGenre());
     }
 
     public void editPlaylist(Playlist pl) {
@@ -99,5 +113,9 @@ public class Logic {
             System.out.println("Playlist edited: " + newPlaylistName);
             savePlaylist(newPlaylistName);
         }
+    }
+
+    public List<Song> returnSongsInPlaylist(Playlist selectedItem) {
+            return dao.returnSongsInPlaylist(selectedItem);
     }
 }

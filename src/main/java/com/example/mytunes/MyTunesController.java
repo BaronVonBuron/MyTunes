@@ -4,15 +4,23 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.ListView;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.media.MediaPlayer;
+
+import java.util.List;
 
 
 public class MyTunesController {
 
     private ObservableList allSongs, allPlaylists;
+    private List<Song> songsInPlaylist;
+    @FXML
+    private ListView SongsInPlaylist;
 
     private final Logic logic = new Logic();
     @FXML
@@ -95,7 +103,7 @@ public class MyTunesController {
     }
     @FXML
     public void newSongButtonPressed(ActionEvent event) {
-        logic.createSong();
+        logic.createSong(AllSongs.getScene().getRoot().getScene().getWindow());
         updateTables();
     }
     @FXML
@@ -113,5 +121,19 @@ public class MyTunesController {
     }
     @FXML
     public void muteButtonPressed(MouseEvent mouseEvent) {
+    }
+    @FXML
+    public void playListClicked(MouseEvent mouseEvent){
+        if(mouseEvent.getButton().equals(MouseButton.PRIMARY) && mouseEvent.getClickCount() == 2) {
+            this.songsInPlaylist = logic.returnSongsInPlaylist((Playlist) AllPlaylists.getSelectionModel().getSelectedItem());
+            ObservableList observableSongsInPlaylist = FXCollections.observableList(songsInPlaylist);
+            SongsInPlaylist.setItems(observableSongsInPlaylist);
+        }
+    }
+
+    public void addSongToPlaylist(ActionEvent actionEvent) {
+        Playlist pl = (Playlist) AllPlaylists.getSelectionModel().getSelectedItem();
+        pl.addSong(AllSongs.getSelectionModel().getSelectedItem());
+        logic.addSongToPlaylist(pl, AllSongs.getSelectionModel().getSelectedItem());
     }
 }
