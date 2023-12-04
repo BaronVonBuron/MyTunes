@@ -19,7 +19,7 @@ public class DataAccessObject {
     }
 
 
-    public void doSomething(String s){
+    public void updateSomething(String s){
         try {
             Statement database = con.createStatement();
             database.executeUpdate(s);
@@ -56,9 +56,9 @@ public class DataAccessObject {
                 String title = rs.getString("title");
                 String artist = rs.getString("artist");
                 String genre = rs.getString("genre");
-                int duration = rs.getInt("duration");
+                String filename = rs.getString("filename");
                 int ID = rs.getInt("ID");
-                songs.add(new Song(title, artist, genre, ID, duration));
+                songs.add(new Song(title, artist, genre, ID, filename));
             }
             System.out.println("Statement: "+s+" Has been executed.");
         } catch (SQLException e) {
@@ -70,12 +70,12 @@ public class DataAccessObject {
     public List<Song> returnSongsInPlaylist(Playlist pl){
         List<Song> songsinPL = new ArrayList<>();
         List<Integer> songIDs = new ArrayList<>();
-        String s = "SELECT * FROM PlaylistSong WHERE name = '"+ pl.getName() +"'";
+        String s = "SELECT * FROM PlaylistSong WHERE playlist_name = '"+ pl.getName() +"'";
         try {
             Statement database = con.createStatement();
             ResultSet rs = database.executeQuery(s);
             while (rs.next()){
-                int ID = rs.getInt("ID");
+                int ID = rs.getInt("song_id");
                 songIDs.add(ID);
             }
             for (Integer i : songIDs) {
@@ -85,9 +85,9 @@ public class DataAccessObject {
                     String title = rs1.getString("title");
                     String artist = rs1.getString("artist");
                     String genre = rs1.getString("genre");
-                    int duration = rs1.getInt("duration");
+                    String filename = rs1.getString("filename");
                     int ID = rs1.getInt("ID");
-                    songsinPL.add(new Song(title, artist, genre, ID, duration));
+                    songsinPL.add(new Song(title, artist, genre, ID, filename));
                 }
             }
             System.out.println("Statement: "+s+" Has been executed.");
@@ -97,19 +97,19 @@ public class DataAccessObject {
         return songsinPL;
     }
 
-    public void saveSong(String songTitle, String songArtist, String songGenre){
-        String s = "INSERT INTO Song (title, artist, genre) VALUES ('"+songTitle+"', '"+songArtist+"', '"+songGenre+"')";
-        doSomething(s);
+    public void saveSong(String songTitle, String songArtist, String songGenre, int duration, String filename){
+        String s = "INSERT INTO Song (title, artist, genre, duration, filename) VALUES ('"+songTitle+"', '"+songArtist+"', '"+songGenre+"', '"+duration+"', '"+filename+"')";
+        updateSomething(s);
     }
 
     public void savePlaylist(String name){
         String s = "INSERT INTO Playlist (name) VALUES ('"+name+"')";
-        doSomething(s);
+        updateSomething(s);
     }
 
 
     public void saveSongToPlaylist(String name, int id) {
         String s = "INSERT INTO PlaylistSong (playlist_name, song_id) VALUES ('"+name+"', "+id+")";
-        doSomething(s);
+        updateSomething(s);
     }
 }

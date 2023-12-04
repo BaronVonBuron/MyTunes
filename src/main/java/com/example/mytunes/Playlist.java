@@ -1,5 +1,6 @@
 package com.example.mytunes;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,7 +24,7 @@ public class Playlist {
         int totalDuration = 0;
         if (!songs.isEmpty()){
             for (Song s : songs) {
-                totalDuration += s.getDuration();
+                totalDuration += (int) s.getDuration().toSeconds();
             }
             return totalDuration;
         }else return totalDuration;

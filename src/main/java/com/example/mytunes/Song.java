@@ -1,28 +1,60 @@
 package com.example.mytunes;
 
+import java.io.File;
+
+import javafx.scene.media.Media;
 import javafx.util.Duration;
+
 
 public class Song {
 
-    private int ID;
-    private int duration;
-    private String title, artist, genre;
-
-    public Song(String title, String artist, String genre, int ID, int duration) {
+    private final int ID;
+    private String title, artist, genre, filename;
+    private File file;
+    private Media media;
+    private javafx.util.Duration duration;
+    public Song(String title, String artist, String genre, int ID, String filename) {
         this.ID = ID;
         this.title = title;
         this.artist = artist;
         this.genre = genre;
-        this.duration = duration;
+        this.filename = filename;
+        setFile(filename);
+        setMedia();
+        this.duration = this.media.getDuration();
     }
 
-    public int getDuration() {
+    private void setMedia() {
+        if (this.file != null) {
+            try {
+                this.media = new Media(this.file.toURI().toString());
+                System.out.println("it worked"+this.media.toString());
+            } catch (Exception e) {
+                System.out.println("Error creating Media object for song with ID: " + getID());
+                e.printStackTrace();  // Handle the exception according to your needs
+            }
+        } else {
+            System.out.println("Cannot create Media object for song with ID: " + getID() + " - File is null");
+        }
+    }
+
+
+    private void setFile(String filepath){
+        if (filepath != null){
+            this.file = new File(filepath);
+        }else System.out.println("Cannot assign file to song with ID :"+getID()+" - Filepath is problem: "+filepath);
+    }
+
+
+    public File getFile() {
+        return file;
+    }
+
+    public Duration getDuration() {
         return duration;
     }
 
-    public void setDuration(int duration) {
-        this.duration = duration;
-    }
+
 
     public int getID() {
         return ID;
@@ -55,11 +87,6 @@ public class Song {
 
     @Override
     public String toString() {
-        return "Song{" +
-                " ID= " + ID +
-                ", title= '" + title + '\'' +
-                ", author= '" + artist + '\'' +
-                ", genre= '" + genre + '\'' +
-                '}';
+        return title + " - "+artist+" - "+genre;
     }
 }
