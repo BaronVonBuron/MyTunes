@@ -1,13 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.effect.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.shape.*?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.Slider?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.Glow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Circle?>
 
-<AnchorPane maxHeight="564.0" maxWidth="975.0" minHeight="483.0" minWidth="868.0" prefHeight="564.0" prefWidth="975.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.mytunes.MyTunesController">
+<AnchorPane maxHeight="564.0" maxWidth="975.0" minHeight="483.0" minWidth="868.0" prefHeight="564.0" prefWidth="975.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.mytunes.MyTunesController">
    <children>
       <ImageView fitHeight="577.0" fitWidth="984.0" layoutX="-5.0" layoutY="-11.0">
          <image>
@@ -22,7 +28,7 @@
             <TableColumn fx:id="Time" prefWidth="32.0001220703125" style="-fx-background-color: transparent;" styleClass="styles.css" text="Time" />
         </columns>
       </TableView>
-      <TableView fx:id="AllPlaylists" layoutX="53.0" layoutY="300.0" onMouseClicked="#playListClicked" prefHeight="159.0" prefWidth="198.0" style="-fx-background-color: transparent;" styleClass="styles.css" stylesheets="@styles.css">
+      <TableView fx:id="AllPlaylists" layoutX="53.0" layoutY="300.0" onMouseClicked="#playListClicked" prefHeight="159.0" prefWidth="198.0">
         <columns>
           <TableColumn fx:id="Name" prefWidth="84.00000762939453" styleClass="styles.css" text="Name" />
           <TableColumn fx:id="numberOfSongsInPlaylist" prefWidth="44.0" styleClass="styles.css" text="Songs" />
@@ -66,24 +72,30 @@
          </cursor>
       </Slider>
       <Slider fx:id="volumeSlider" blockIncrement="1.0" layoutX="60.0" layoutY="508.0" />
-      <ImageView fx:id="volumedownButton" fitHeight="24.0" fitWidth="28.0" layoutX="66.0" layoutY="534.0" onMouseClicked="#volumeDownButtonPressed" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="volumedownButton" fitHeight="24.0" fitWidth="28.0" layoutX="66.0" layoutY="530.0" onMouseClicked="#volumeDownButtonPressed" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@volumedown.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="volumeUpButton" fitHeight="24.0" fitWidth="59.0" layoutX="163.0" layoutY="534.0" onMouseClicked="#VolumeUpButtonPressed" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="volumeUpButton" fitHeight="24.0" fitWidth="59.0" layoutX="163.0" layoutY="530.0" onMouseClicked="#VolumeUpButtonPressed" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@volumeup.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="MuteButton" fitHeight="24.0" fitWidth="67.0" layoutX="116.0" layoutY="534.0" onMouseClicked="#muteButtonPressed" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="MuteButton" fitHeight="24.0" fitWidth="67.0" layoutX="110.0" layoutY="530.0" onMouseClicked="#muteButtonPressed" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@silent.png" />
          </image>
       </ImageView>
-      <Circle fill="#1f93ff00" layoutX="175.0" layoutY="546.0" radius="14.0" stroke="BLACK" strokeType="INSIDE" />
-      <Circle fill="#1f93ff00" layoutX="128.0" layoutY="546.0" radius="14.0" stroke="BLACK" strokeType="INSIDE" />
-      <Circle fill="#1f93ff00" layoutX="78.0" layoutY="546.0" radius="14.0" stroke="BLACK" strokeType="INSIDE" />
-      <Button fx:id="addSongToPlaylistButton" layoutX="424.0" layoutY="367.0" mnemonicParsing="false" onAction="#addSongToPlaylist" text="AddToPL" />
+      <Circle fill="#1f93ff00" layoutX="175.0" layoutY="542.0" radius="14.0" stroke="BLACK" strokeType="INSIDE" />
+      <Circle fill="#1f93ff00" layoutX="122.0" layoutY="542.0" radius="14.0" stroke="BLACK" strokeType="INSIDE" />
+      <Circle fill="#1f93ff00" layoutX="78.0" layoutY="542.0" radius="14.0" stroke="BLACK" strokeType="INSIDE" />
+      <Button fx:id="addSongToPlaylistButton" layoutX="608.0" layoutY="196.0" mnemonicParsing="false" onAction="#addSongToPlaylist" style="-fx-background-color: BROWN;" text="Add To&#10;Playlist&#10;" />
+      <ImageView fx:id="searchButton" fitHeight="20.0" fitWidth="20.0" layoutX="937.0" layoutY="13.0" onMouseClicked="#searchButtonPressed" pickOnBounds="true" preserveRatio="true" rotate="90.0">
+         <image>
+            <Image url="@søge.png" />
+         </image>
+      </ImageView>
+      <TextField fx:id="searchFIeld" layoutX="783.0" layoutY="11.0" onAction="#searchFieldAction" />
    </children>
 </AnchorPane>
