@@ -66,7 +66,7 @@ public class MyTunesController {
 
         AllSongs.refresh();
         AllPlaylists.refresh();
-    }
+    }//loader tableviews så sange og playlister er der fra starten af appen
 
     @FXML
     public void playButtonPressed(MouseEvent mouseEvent) {
@@ -129,7 +129,7 @@ public class MyTunesController {
             ObservableList observableSongsInPlaylist = FXCollections.observableList(songsInPlaylist);
             SongsInPlaylist.setItems(observableSongsInPlaylist);
         }
-    }
+    } //når man dobble clikker på en playliste kommer der listView op med sangene i den
 
     public void addSongToPlaylist(ActionEvent actionEvent) {
         Playlist pl = (Playlist) AllPlaylists.getSelectionModel().getSelectedItem();
