@@ -13,26 +13,27 @@ public class Playlist {
     public Playlist(String name) {
         this.name = name;
         songs = new ArrayList<>();
-        this.duration = setDuration();
+        setDuration();
     }
 
     public int getDuration() {
         return duration;
     }
 
-    private int setDuration() {
+    public void setDuration() {
         int totalDuration = 0;
-        if (!songs.isEmpty()){
-            for (Song s : songs) {
+        if (!this.songs.isEmpty()){
+            for (Song s : this.songs) {
                 totalDuration += (int) s.getDuration().toSeconds();
             }
-            return totalDuration;
-        }else return totalDuration;
+            this.duration = totalDuration;
+        } else this.duration = 0;
     }
 
 
     public void addSong(Song s){
         this.songs.add(s);
+        setDuration();
     }
 
 
@@ -56,7 +57,8 @@ public class Playlist {
     public String toString() {
         return "Playlist{" +
                 "name='" + name + '\'' +
-                ", songs=" + songs +
+                ", songs=" + songs.size() +
+                ", duration=" + duration +
                 '}';
     }
 }

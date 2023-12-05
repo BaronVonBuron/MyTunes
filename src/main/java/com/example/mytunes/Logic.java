@@ -6,10 +6,13 @@ package com.example.mytunes;
 //Den laver et object af DataAccess - som er dens vej ind i databasen.
 //Når der trykkes på en knap i programmet, så sender controlleren besked videre til denne klasse - så controller ikke har adgang til DB uden at gå igennem denne.
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import javafx.stage.Stage;
 import javafx.stage.Window;
+import javafx.util.Duration;
+import javafx.scene.media.Media;
 
 public class Logic {
     private DataAccessObject dao;
@@ -31,6 +34,9 @@ public class Logic {
     }
 
     public List<Playlist> getPlaylists() {
+        for (Playlist p : playlists) {
+            p.setDuration();
+        }
         return playlists;
     }
 
@@ -74,6 +80,16 @@ public class Logic {
         }
     }
 
+    private Duration getMediaDuration(String filePath) {
+        try {
+            // Use a Media object to get the duration
+            Media media = new Media(new File(filePath).toURI().toString());
+            return media.getDuration();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return Duration.UNKNOWN; // or handle the exception as needed
+        }
+    }
 
     public void createSong(Window window) {
         DialogWindow dialogWindow = new DialogWindow(false, window);
@@ -82,21 +98,27 @@ public class Logic {
 
 
         if (selectedFilePath != null && !selectedFilePath.isEmpty()) {
+            // Get the duration of the selected media file
+            Duration mediaDuration = getMediaDuration(selectedFilePath);
+
+
             DialogWindow dw = new DialogWindow(false, "title", "artist", "genre");
             String title = dw.getInputTitle();
             String artist = dw.getInputAuthor();
             String genre = dw.getInputGenre();
 
-            if (title == null){
+            if (title == null) {
                 title = "";
             }
-            if (artist == null){
+            if (artist == null) {
                 artist = "";
             }
-            if (genre == null){
+            if (genre == null) {
                 genre = "";
             }
-            saveSong(title, artist, genre, 0, selectedFilePath);
+
+            // Pass the actual duration to the saveSong method
+            saveSong(title, artist, genre, (int) mediaDuration.toMillis(), selectedFilePath);
         }
     }
 
