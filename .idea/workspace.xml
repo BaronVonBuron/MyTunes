@@ -4,25 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8b120f27-024c-4e96-b92a-cd8ef0508cc4" name="Changes" comment="FRONT END med mouse events i FXML">
-      <change afterPath="$PROJECT_DIR$/lib/javafx-base-18.0.1-win.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/javafx-base-18.0.1.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/javafx-graphics-18.0.1-win.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/javafx-graphics-18.0.1.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/javafx-media-18.0.1-win.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/javafx-media-18.0.1.jar" afterDir="false" />
+    <list default="true" id="8b120f27-024c-4e96-b92a-cd8ef0508cc4" name="Changes" comment="Kommentarer">
       <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/mytunes/DataAccessObject.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/mytunes/DataAccessObject.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/mytunes/DialogWindow.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/mytunes/DialogWindow.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/mytunes/Logic.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/mytunes/Logic.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/mytunes/MyTunesController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/mytunes/MyTunesController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/mytunes/Playlist.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/mytunes/Playlist.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/mytunes/Song.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/mytunes/Song.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/mytunes/MyTunes.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/mytunes/MyTunes.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -33,8 +18,6 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Class" />
-        <option value="Kotlin Class" />
-        <option value="CSS File" />
       </list>
     </option>
   </component>
@@ -46,16 +29,39 @@
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="GitHubPullRequestSearchHistory">{
-  &quot;lastFilter&quot;: {
-    &quot;state&quot;: &quot;OPEN&quot;,
-    &quot;assignee&quot;: &quot;Jakoc&quot;
+  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
+  "lastFilter": {
   }
-}</component>
+}]]></component>
+  <component name="GitToolBoxStore">
+    <option name="recentBranches">
+      <RecentBranches>
+        <option name="branchesForRepo">
+          <list>
+            <RecentBranchesForRepo>
+              <option name="branches">
+                <list>
+                  <RecentBranch>
+                    <option name="branchName" value="Andra" />
+                    <option name="lastUsedInstant" value="1701763469" />
+                  </RecentBranch>
+                  <RecentBranch>
+                    <option name="branchName" value="master" />
+                    <option name="lastUsedInstant" value="1701763468" />
+                  </RecentBranch>
+                </list>
+              </option>
+              <option name="repositoryRootUrl" value="file://$PROJECT_DIR$" />
+            </RecentBranchesForRepo>
+          </list>
+        </option>
+      </RecentBranches>
+    </option>
+  </component>
   <component name="GithubPullRequestsUISettings">
     <option name="selectedUrlAndAccountId">
       <UrlAndAccount>
-        <option name="accountId" value="0bd18598-83a5-4d01-ac94-79f55ea5c6fb" />
+        <option name="accountId" value="237b1261-680a-4f1e-bee2-22c0105491d4" />
         <option name="url" value="https://github.com/BaronVonBuron/MyTunes.git" />
       </UrlAndAccount>
     </option>
@@ -74,27 +80,21 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "ASKED_ADD_EXTERNAL_FILES": "true",
-    "Downloaded.Files.Path.Enabled": "true",
-    "Repository.Attach.Annotations": "false",
-    "Repository.Attach.JavaDocs": "false",
-    "Repository.Attach.Sources": "false",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "AndersWeekend",
+    "git-widget-placeholder": "Andra",
     "ignore.virus.scanning.warn.message": "true",
     "jdk.selected.JAVA_MODULE": "openjdk-21",
-    "last_opened_file_path": "C:/Users/andbu/OneDrive/Dokumenter/GitHub/MyTunes/src/main/mssql-jdbc-12.4.2.jre11.jar",
-    "list.type.of.created.stylesheet": "CSS",
+    "last_opened_file_path": "C:/Datamatiker/sqljdbc_12.4.2.0_enu/sqljdbc_12.4/enu/jars/mssql-jdbc-12.4.2.jre11.jar",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "project.structure.last.edited": "Modules",
-    "project.structure.proportion": "0.18554688",
-    "project.structure.side.proportion": "0.5827586",
-    "settings.editor.selected.configurable": "reference.settings.project.maven.repository.indices",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.15057471",
     "vue.rearranger.settings.migration": "true"
   },
   "keyToStringList": {
@@ -125,10 +125,6 @@
       <workItem from="1701181959933" duration="8861000" />
       <workItem from="1701245167250" duration="3905000" />
       <workItem from="1701282168436" duration="11429000" />
-      <workItem from="1701331793536" duration="3816000" />
-      <workItem from="1701431979174" duration="4091000" />
-      <workItem from="1701686951746" duration="10999000" />
-      <workItem from="1701702433345" duration="7304000" />
     </task>
     <task id="LOCAL-00001" summary="Created DB and made some functions to save/load stuff from DB - everything untested.">
       <option name="closed" value="true" />
@@ -170,11 +166,42 @@
       <option name="project" value="LOCAL" />
       <updated>1701254166678</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="Kommentarer">
+      <option name="closed" value="true" />
+      <created>1701765671863</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1701765671863</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="Andra" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
@@ -182,6 +209,7 @@
     <MESSAGE value="FRONT END 1" />
     <MESSAGE value="FRONT END 2" />
     <MESSAGE value="FRONT END med mouse events i FXML" />
-    <option name="LAST_COMMIT_MESSAGE" value="FRONT END med mouse events i FXML" />
+    <MESSAGE value="Kommentarer" />
+    <option name="LAST_COMMIT_MESSAGE" value="Kommentarer" />
   </component>
 </project>
