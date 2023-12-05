@@ -19,8 +19,6 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Class" />
-        <option value="Kotlin Class" />
-        <option value="CSS File" />
       </list>
     </option>
   </component>
@@ -32,16 +30,39 @@
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="GitHubPullRequestSearchHistory">{
-  &quot;lastFilter&quot;: {
-    &quot;state&quot;: &quot;OPEN&quot;,
-    &quot;assignee&quot;: &quot;Jakoc&quot;
+  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
+  "lastFilter": {
   }
-}</component>
+}]]></component>
+  <component name="GitToolBoxStore">
+    <option name="recentBranches">
+      <RecentBranches>
+        <option name="branchesForRepo">
+          <list>
+            <RecentBranchesForRepo>
+              <option name="branches">
+                <list>
+                  <RecentBranch>
+                    <option name="branchName" value="Andra" />
+                    <option name="lastUsedInstant" value="1701763469" />
+                  </RecentBranch>
+                  <RecentBranch>
+                    <option name="branchName" value="master" />
+                    <option name="lastUsedInstant" value="1701763468" />
+                  </RecentBranch>
+                </list>
+              </option>
+              <option name="repositoryRootUrl" value="file://$PROJECT_DIR$" />
+            </RecentBranchesForRepo>
+          </list>
+        </option>
+      </RecentBranches>
+    </option>
+  </component>
   <component name="GithubPullRequestsUISettings">
     <option name="selectedUrlAndAccountId">
       <UrlAndAccount>
-        <option name="accountId" value="0bd18598-83a5-4d01-ac94-79f55ea5c6fb" />
+        <option name="accountId" value="237b1261-680a-4f1e-bee2-22c0105491d4" />
         <option name="url" value="https://github.com/BaronVonBuron/MyTunes.git" />
       </UrlAndAccount>
     </option>
@@ -157,11 +178,42 @@
       <option name="project" value="LOCAL" />
       <updated>1701254166678</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="Kommentarer">
+      <option name="closed" value="true" />
+      <created>1701765671863</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1701765671863</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="Andra" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
@@ -169,6 +221,7 @@
     <MESSAGE value="FRONT END 1" />
     <MESSAGE value="FRONT END 2" />
     <MESSAGE value="FRONT END med mouse events i FXML" />
-    <option name="LAST_COMMIT_MESSAGE" value="FRONT END med mouse events i FXML" />
+    <MESSAGE value="Kommentarer" />
+    <option name="LAST_COMMIT_MESSAGE" value="Kommentarer" />
   </component>
 </project>
