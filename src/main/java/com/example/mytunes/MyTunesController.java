@@ -136,4 +136,10 @@ public class MyTunesController {
         pl.addSong(AllSongs.getSelectionModel().getSelectedItem());
         logic.addSongToPlaylist(pl, AllSongs.getSelectionModel().getSelectedItem());
     }
+
+    public void searchButtonPressed(MouseEvent mouseEvent) {
+    }
+
+    public void searchFieldAction(ActionEvent event) {
+    }
 }
