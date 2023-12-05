@@ -1,7 +1,7 @@
 package com.example.mytunes;
 
 
-//business logic layer (vidste ikke hvad jeg skulle kalde den.
+//business logic layer (vidste ikke hvad jeg skulle kalde den)
 //Denne klasse skal tage sig af input kontrol, og indeholder metoder til at oprette/redigere playlister og sange.
 //Den laver et object af DataAccess - som er dens vej ind i databasen.
 //Når der trykkes på en knap i programmet, så sender controlleren besked videre til denne klasse - så controller ikke har adgang til DB uden at gå igennem denne.
