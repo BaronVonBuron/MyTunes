@@ -16,7 +16,7 @@ public class DataAccessObject {
             System.err.println("Can't connect to Database: " + e.getErrorCode() + e.getMessage());
         }
         System.out.println("Forbundet til databasen... ");
-    }
+    } //opret forbindelse til db og catch exceptions hvis det ikke kan lade sig gøre
 
 
     public void updateSomething(String s){
@@ -27,7 +27,7 @@ public class DataAccessObject {
         } catch (SQLException e) {
             System.out.println("Can't do requested statement: "+s+ " Code: "+ e.getErrorCode()+" Because: " + e.getMessage());
         }
-    }
+    } //script til at opdatere i db hver gang det skal bruges, så det ikke skrives igen
 
     public List<Playlist> returnAllPlaylists(){
         List<Playlist> playlists = new ArrayList<>();
@@ -44,7 +44,7 @@ public class DataAccessObject {
             System.out.println("Can't do requested statement: "+s+ " Because: "+ e.getErrorCode() + e.getMessage());
         }
         return playlists;
-    }
+    } //load playlisterne fra db indtil der ikke er flere
 
     public List<Song> returnAllSongs(){
         List<Song> songs = new ArrayList<>();
@@ -65,7 +65,7 @@ public class DataAccessObject {
             System.out.println("Can't do requested statement: "+s+ " Because: "+ e.getErrorCode() + e.getMessage());
         }
         return songs;
-    }
+    } //load sangene fra db indtil der ikker er flere
 
     public List<Song> returnSongsInPlaylist(Playlist pl){
         List<Song> songsinPL = new ArrayList<>();
@@ -95,21 +95,21 @@ public class DataAccessObject {
             System.out.println("Can't do requested statement: "+s+ " Because: "+ e.getErrorCode() + e.getMessage());
         }
         return songsinPL;
-    }
+    } //load alle sange i en valgt playliste fra db indtil der ikke er flere
 
     public void saveSong(String songTitle, String songArtist, String songGenre, int duration, String filename){
         String s = "INSERT INTO Song (title, artist, genre, duration, filename) VALUES ('"+songTitle+"', '"+songArtist+"', '"+songGenre+"', '"+duration+"', '"+filename+"')";
         updateSomething(s);
-    }
+    } //Specifikt script til at tilføje sang
 
     public void savePlaylist(String name){
         String s = "INSERT INTO Playlist (name) VALUES ('"+name+"')";
         updateSomething(s);
-    }
+    } //Spec. script til at tilføje playlist
 
 
     public void saveSongToPlaylist(String name, int id) {
         String s = "INSERT INTO PlaylistSong (playlist_name, song_id) VALUES ('"+name+"', "+id+")";
         updateSomething(s);
-    }
+    } //Sepc. script til at tilføje en sang til en playlist
 }
