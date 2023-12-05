@@ -5,24 +5,27 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListView;
+import javafx.scene.control.Slider;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.media.MediaPlayer;
 
 import java.util.List;
 
 
 public class MyTunesController {
 
+    @FXML
+    private Slider volumeSlider;
     private ObservableList allSongs, allPlaylists;
     private List<Song> songsInPlaylist;
     @FXML
     private ListView SongsInPlaylist;
 
     private final Logic logic = new Logic();
+    private JazzMediaPlayer jmp;
     @FXML
     private TableView<Song> AllSongs  = new TableView<>();
     @FXML
@@ -39,13 +42,20 @@ public class MyTunesController {
     @FXML
     private TableColumn<Playlist, String> Name = new TableColumn<>();
     @FXML
-    private TableColumn<Integer, String> numberOfSongsInPlaylist = new TableColumn<>();
+    private TableColumn<Playlist, Integer> numberOfSongsInPlaylist = new TableColumn<>();
     @FXML
-    private TableColumn<Integer, String> playlistDuration = new TableColumn<>();
+    private TableColumn<Playlist, Integer> playlistDuration = new TableColumn<>();
 
     public void initialize(){
-        System.out.println("Controller initialized");
-        updateTables();
+        System.out.println("Controller initialized");//Den er her for at vise at controlleren bliver startet ordentligt.
+        updateTables();//loader tableviews så sange og playlister er der fra starten af appen
+        jmp = new JazzMediaPlayer("C:\\Users\\andbu\\OneDrive\\Dokumenter\\GitHub\\MyTunes\\Billie_Holiday_-_Blue_Moon.mp3");
+
+        volumeSlider.setValue(0.25);
+
+        volumeSlider.valueProperty().addListener((observable, oldValue, newValue) -> {
+            volumeSliderMoved(newValue.doubleValue());
+        });
     }
 
     public void updateTables(){
@@ -66,19 +76,20 @@ public class MyTunesController {
 
         AllSongs.refresh();
         AllPlaylists.refresh();
-    }//loader tableviews så sange og playlister er der fra starten af appen
+        SongsInPlaylist.refresh();
+    }
 
     @FXML
     public void playButtonPressed(MouseEvent mouseEvent) {
-        logic.play();
+        jmp.setVolume(volumeSlider.getValue());
+        jmp.play();
+        System.out.println("playbutton pressed");
     }
     @FXML
     public void forwardButtonPressed(MouseEvent mouseEvent) {
-        logic.nextSong();
     }
     @FXML
     public void backwardsButtonPressed(MouseEvent mouseEvent) {
-        logic.replayOrGoBack();
     }
     @FXML
     public void newPlaylistButtonPressed(ActionEvent event) {
@@ -109,37 +120,52 @@ public class MyTunesController {
     @FXML
     public void editSongButtonPressed(ActionEvent event) {
         logic.editSong((Song) AllSongs.getSelectionModel().getSelectedItem());
+        updateTables();
     }
     @FXML
     public void deleteSongButtonPressed(ActionEvent event) {
     }
     @FXML
     public void volumeDownButtonPressed(MouseEvent mouseEvent) {
+        jmp.volumeIncrementDown();
     }
     @FXML
     public void VolumeUpButtonPressed(MouseEvent mouseEvent) {
+        jmp.volumeIncrementUp();
     }
     @FXML
     public void muteButtonPressed(MouseEvent mouseEvent) {
+        jmp.mute();
     }
     @FXML
     public void playListClicked(MouseEvent mouseEvent){
-        if(mouseEvent.getButton().equals(MouseButton.PRIMARY) && mouseEvent.getClickCount() == 2) {
-            this.songsInPlaylist = logic.returnSongsInPlaylist((Playlist) AllPlaylists.getSelectionModel().getSelectedItem());
+        if(mouseEvent.getButton().equals(MouseButton.PRIMARY) && mouseEvent.getClickCount() == 2 && AllPlaylists.getSelectionModel().getSelectedItem() != null) {
+            Playlist pl = (Playlist) AllPlaylists.getSelectionModel().getSelectedItem();
+            pl.setDuration();
+            this.songsInPlaylist = logic.returnSongsInPlaylist(pl);
             ObservableList observableSongsInPlaylist = FXCollections.observableList(songsInPlaylist);
             SongsInPlaylist.setItems(observableSongsInPlaylist);
         }
     } //når man dobble clikker på en playliste kommer der listView op med sangene i den
 
     public void addSongToPlaylist(ActionEvent actionEvent) {
-        Playlist pl = (Playlist) AllPlaylists.getSelectionModel().getSelectedItem();
-        pl.addSong(AllSongs.getSelectionModel().getSelectedItem());
-        logic.addSongToPlaylist(pl, AllSongs.getSelectionModel().getSelectedItem());
-    }
+        if (AllPlaylists.getSelectionModel().getSelectedItem() != null) {
+            Playlist pl = (Playlist) AllPlaylists.getSelectionModel().getSelectedItem();
+            pl.addSong(AllSongs.getSelectionModel().getSelectedItem());
+            logic.addSongToPlaylist(pl, AllSongs.getSelectionModel().getSelectedItem());
+            pl.setDuration();
+            updateTables();
+        } else System.out.println("Please select a playlist");
+    }//Når man har valgt en sang og en playliste, og trykker på tilføj, så smides den valgte sang ind i valgte playliste.
 
     public void searchButtonPressed(MouseEvent mouseEvent) {
     }
 
     public void searchFieldAction(ActionEvent event) {
+    }
+
+    @FXML
+    public void volumeSliderMoved(double newValue) {
+        jmp.setVolume(newValue);
     }
 }

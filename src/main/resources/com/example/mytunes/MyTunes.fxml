@@ -1,20 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.Cursor?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ListView?>
-<?import javafx.scene.control.Slider?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.effect.Glow?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
 
-<AnchorPane maxHeight="564.0" maxWidth="975.0" minHeight="483.0" minWidth="868.0" prefHeight="564.0" prefWidth="975.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.mytunes.MyTunesController">
+<AnchorPane maxHeight="564.0" maxWidth="975.0" minHeight="483.0" minWidth="868.0" prefHeight="564.0" prefWidth="975.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.mytunes.MyTunesController">
    <children>
       <ImageView fitHeight="577.0" fitWidth="984.0" layoutX="-5.0" layoutY="-11.0">
          <image>
@@ -37,21 +30,6 @@
         </columns>
       </TableView>
       <ListView fx:id="SongsInPlaylist" layoutX="328.0" layoutY="13.0" prefHeight="190.0" prefWidth="242.0" style="-fx-background-color: transparent;" />
-      <ImageView fx:id="playButton" fitHeight="38.0" fitWidth="28.0" layoutX="436.0" layoutY="517.0" onMouseClicked="#playButtonPressed" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@play.png" />
-         </image>
-      </ImageView>
-      <ImageView fx:id="forwardButton" fitHeight="21.0" fitWidth="20.0" layoutX="492.0" layoutY="522.0" onMouseClicked="#forwardButtonPressed" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@frem.png" />
-         </image>
-      </ImageView>
-      <ImageView fx:id="backwardButton" fitHeight="20.0" fitWidth="28.0" layoutX="388.0" layoutY="522.0" onMouseClicked="#backwardsButtonPressed" pickOnBounds="true" preserveRatio="true" rotate="180.0">
-         <image>
-            <Image url="@tilbage.png" />
-         </image>
-      </ImageView>
       <Circle fill="#1f93ff00" layoutX="500.0" layoutY="532.0" radius="14.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0" />
       <Circle fill="#1f93ff00" layoutX="400.0" layoutY="532.0" radius="14.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0" />
       <Circle fill="#1f93ff00" layoutX="450.0" layoutY="530.0" radius="18.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0" />
@@ -72,22 +50,7 @@
             <Cursor fx:constant="DEFAULT" />
          </cursor>
       </Slider>
-      <Slider fx:id="volumeSlider" blockIncrement="1.0" layoutX="60.0" layoutY="508.0" />
-      <ImageView fx:id="volumedownButton" fitHeight="24.0" fitWidth="28.0" layoutX="66.0" layoutY="530.0" onMouseClicked="#volumeDownButtonPressed" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@volumedown.png" />
-         </image>
-      </ImageView>
-      <ImageView fx:id="volumeUpButton" fitHeight="24.0" fitWidth="59.0" layoutX="163.0" layoutY="530.0" onMouseClicked="#VolumeUpButtonPressed" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@volumeup.png" />
-         </image>
-      </ImageView>
-      <ImageView fx:id="MuteButton" fitHeight="24.0" fitWidth="67.0" layoutX="110.0" layoutY="530.0" onMouseClicked="#muteButtonPressed" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@silent.png" />
-         </image>
-      </ImageView>
+      <Slider fx:id="volumeSlider" blockIncrement="0.01" layoutX="60.0" layoutY="508.0" max="1.0" />
       <Circle fill="#1f93ff00" layoutX="175.0" layoutY="542.0" radius="14.0" stroke="BLACK" strokeType="INSIDE" />
       <Circle fill="#1f93ff00" layoutX="122.0" layoutY="542.0" radius="14.0" stroke="BLACK" strokeType="INSIDE" />
       <Circle fill="#1f93ff00" layoutX="78.0" layoutY="542.0" radius="14.0" stroke="BLACK" strokeType="INSIDE" />
@@ -104,5 +67,35 @@
          </image>
       </ImageView>
       <Label fx:id="currentSongPlaying" layoutX="388.0" layoutY="273.0" text="() is playing" />
+      <ImageView fx:id="playButton" fitHeight="38.0" fitWidth="28.0" layoutX="436.0" layoutY="517.0" onMouseClicked="#playButtonPressed" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@play.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="MuteButton" fitHeight="24.0" fitWidth="67.0" layoutX="110.0" layoutY="530.0" onMouseClicked="#muteButtonPressed" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@silent.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="volumeUpButton" fitHeight="24.0" fitWidth="59.0" layoutX="163.0" layoutY="530.0" onMouseClicked="#VolumeUpButtonPressed" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@volumeup.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="volumedownButton" fitHeight="24.0" fitWidth="28.0" layoutX="66.0" layoutY="530.0" onMouseClicked="#volumeDownButtonPressed" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@volumedown.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="backwardButton" fitHeight="20.0" fitWidth="28.0" layoutX="388.0" layoutY="522.0" onMouseClicked="#backwardsButtonPressed" pickOnBounds="true" preserveRatio="true" rotate="180.0">
+         <image>
+            <Image url="@tilbage.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="forwardButton" fitHeight="21.0" fitWidth="20.0" layoutX="492.0" layoutY="522.0" onMouseClicked="#forwardButtonPressed" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@frem.png" />
+         </image>
+      </ImageView>
    </children>
 </AnchorPane>

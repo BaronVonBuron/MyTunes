@@ -1,10 +1,10 @@
 package com.example.mytunes;
 
-import java.io.File;
-
 import javafx.scene.media.Media;
 import javafx.util.Duration;
-
+import java.io.File;
+import javafx.scene.media.MediaPlayer;
+import javafx.scene.media.MediaPlayer.Status;
 
 public class Song {
 
@@ -13,6 +13,7 @@ public class Song {
     private File file;
     private Media media;
     private javafx.util.Duration duration;
+
     public Song(String title, String artist, String genre, int ID, String filename) {
         this.ID = ID;
         this.title = title;
@@ -21,14 +22,14 @@ public class Song {
         this.filename = filename;
         setFile(filename);
         setMedia();
-        this.duration = this.media.getDuration();
     }
 
     private void setMedia() {
         if (this.file != null) {
             try {
                 this.media = new Media(this.file.toURI().toString());
-                System.out.println("it worked"+this.media.toString());
+                System.out.println("Media for song: " + this.ID + " - " + this.media.toString());
+                updateDuration();
             } catch (Exception e) {
                 System.out.println("Error creating Media object for song with ID: " + getID());
                 e.printStackTrace();  // Handle the exception according to your needs
@@ -38,23 +39,33 @@ public class Song {
         }
     }
 
-
-    private void setFile(String filepath){
-        if (filepath != null){
+    private void setFile(String filepath) {
+        if (filepath != null) {
             this.file = new File(filepath);
-        }else System.out.println("Cannot assign file to song with ID :"+getID()+" - Filepath is problem: "+filepath);
+            System.out.println("File path for song: " + this.ID + " - " + this.file.getAbsolutePath());
+        } else {
+            System.out.println("Cannot assign file to song with ID :" + getID() + " - Filepath is null");
+        }
     }
 
+    // Update duration when needed
+    public void updateDuration() {
+        if (this.media != null) {
+            this.duration = this.media.getDuration();
+            System.out.println("Updated duration for song: " + this.ID + " - " + this.duration);
+        }
+    }
+
+    public Duration getDuration() {
+        if (this.duration == null) {
+            updateDuration();
+        }
+        return this.duration;
+    }
 
     public File getFile() {
         return file;
     }
-
-    public Duration getDuration() {
-        return duration;
-    }
-
-
 
     public int getID() {
         return ID;
@@ -87,6 +98,6 @@ public class Song {
 
     @Override
     public String toString() {
-        return title + " - "+artist+" - "+genre;
+        return title + " - " + artist + " - " + genre + " - " + (int) duration.toSeconds();
     }
 }
