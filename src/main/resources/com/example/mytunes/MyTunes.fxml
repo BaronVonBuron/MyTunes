@@ -103,6 +103,6 @@
             <Image url="@logo.png" />
          </image>
       </ImageView>
-      <Label fx:id="currentSongPlaying" layoutX="398.0" layoutY="273.0" text="() is playing" />
+      <Label fx:id="currentSongPlaying" layoutX="388.0" layoutY="273.0" text="() is playing" />
    </children>
 </AnchorPane>
