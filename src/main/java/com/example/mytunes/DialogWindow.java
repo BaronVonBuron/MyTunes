@@ -93,7 +93,7 @@ public class DialogWindow {
 
         Optional<String> result = dialog.showAndWait();
         result.ifPresent(name -> inputName = name);
-    }
+    } //playlist creation
 
     private void showPlaylistDialog(String title, String header, String content, String defaultValue) {
         TextInputDialog dialog = new TextInputDialog(defaultValue);
@@ -103,7 +103,7 @@ public class DialogWindow {
 
         Optional<String> result = dialog.showAndWait();
         result.ifPresent(name -> inputName = name);
-    }
+    } //playlist editing
 
     private void editSongDialog(String title, String header, String contentTitle, String contentAuthor, String contentGenre) {
         TextInputDialog dialog = new TextInputDialog();
