@@ -2,8 +2,10 @@ package com.example.mytunes;
 
 import javafx.animation.PathTransition;
 import javafx.animation.Timeline;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -24,7 +26,7 @@ public class MyTunesController {
     private Circle circlePath;//bane til label af sang, der afspilles
 
     @FXML
-    private Slider volumeSlider;
+    private Slider volumeSlider, playTimeSlider;
     private ObservableList allSongs, allPlaylists;
     private List<Song> songsInPlaylist;
     @FXML
@@ -52,10 +54,10 @@ public class MyTunesController {
     @FXML
     private TableColumn<Playlist, Integer> playlistDuration = new TableColumn<>();
 
-    public void initialize(){
+    public void initialize() {
         System.out.println("Controller initialized");//Den er her for at vise at controlleren bliver startet ordentligt.
         updateTables();//loader tableviews så sange og playlister er der fra starten af appen
-        jmp = new JazzMediaPlayer("C:\\Datamatiker\\Github\\MyTunes\\Musik til MyTunes\\Billie_Holiday_-_Blue_Moon.mp3");
+        jmp = new JazzMediaPlayer("C:\\Users\\damer\\Documents\\GitHub\\MyTunes\\Billie_Holiday_-_Blue_Moon.mp3", playTimeSlider);
 
         volumeSlider.setValue(0.25);
 
@@ -64,6 +66,7 @@ public class MyTunesController {
         });
 
         currentSongPlaying();
+
     }
 
     public void updateTables(){
@@ -198,4 +201,6 @@ public class MyTunesController {
                 pT.play();
         }
     }
+
+
 }
