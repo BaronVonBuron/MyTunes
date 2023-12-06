@@ -192,14 +192,21 @@ public class MyTunesController {
 
                 PathTransition pT = new PathTransition();
                 pT.setDuration(Duration.seconds(10));
+                boolean isM = false;
                 if (chars[i] == ' '){
-                    circlePath.setRotate(10*i);
-                }else circlePath.setRotate(5*i);
+                    circlePath.setRotate(9*i);
+                }else if (isM){
+                    circlePath.setRotate(4.3*i);
+                    isM = false;
+                }else if (chars[i] == 'm' || chars[i] == 'M') {
+                    isM = true;
+                    circlePath.setRotate(4*i);
+                }else circlePath.setRotate(4.2*i);
 
                 pT.setPath(circlePath);
                 Label label = new Label(temp);
                 label.setTextFill(Color.WHITE);
-                label.setFont(Font.font(20));
+                label.setFont(Font.font(15));
                 anchorPane.getChildren().add(label);
                 pT.setNode(label);
                 pT.setOrientation(PathTransition.OrientationType.ORTHOGONAL_TO_TANGENT);
