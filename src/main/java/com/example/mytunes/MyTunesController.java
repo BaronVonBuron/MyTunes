@@ -1,5 +1,6 @@
 package com.example.mytunes;
 
+import javafx.animation.Interpolator;
 import javafx.animation.PathTransition;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
@@ -12,16 +13,21 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
+import java.net.Proxy;
 import java.util.List;
 
 
 public class MyTunesController {
+    @FXML
+    private AnchorPane anchorPane;
     @FXML
     private Circle circlePath;//bane til label af sang, der afspilles
 
@@ -57,7 +63,8 @@ public class MyTunesController {
     public void initialize() {
         System.out.println("Controller initialized");//Den er her for at vise at controlleren bliver startet ordentligt.
         updateTables();//loader tableviews så sange og playlister er der fra starten af appen
-        jmp = new JazzMediaPlayer("C:\\Users\\damer\\Documents\\GitHub\\MyTunes\\Billie_Holiday_-_Blue_Moon.mp3", playTimeSlider);
+
+        jmp = new JazzMediaPlayer("Billie_Holiday_-_Blue_Moon.mp3", playTimeSlider);
 
         volumeSlider.setValue(0.25);
 
@@ -189,15 +196,26 @@ public class MyTunesController {
 
                 PathTransition pT = new PathTransition();
                 pT.setDuration(Duration.seconds(10));
+                boolean isM = false;
                 if (chars[i] == ' '){
-                    circlePath.setRotate(8*i);
-                }else circlePath.setRotate(3*i);
+                    circlePath.setRotate(9*i);
+                }else if (isM){
+                    circlePath.setRotate(4.3*i);
+                    isM = false;
+                }else if (chars[i] == 'm' || chars[i] == 'M') {
+                    isM = true;
+                    circlePath.setRotate(4*i);
+                }else circlePath.setRotate(4.2*i);
+
                 pT.setPath(circlePath);
                 Label label = new Label(temp);
                 label.setTextFill(Color.WHITE);
+                label.setFont(Font.font(15));
+                anchorPane.getChildren().add(label);
                 pT.setNode(label);
                 pT.setOrientation(PathTransition.OrientationType.ORTHOGONAL_TO_TANGENT);
                 pT.setCycleCount(Timeline.INDEFINITE);
+                pT.setInterpolator(Interpolator.LINEAR);
                 pT.play();
         }
     }
