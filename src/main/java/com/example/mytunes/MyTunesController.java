@@ -120,6 +120,7 @@ public class MyTunesController {
     }
     @FXML
     public void deletePlaylistButtonPressed(ActionEvent event) {
+        logic.deletePl();
     }
     @FXML
     public void listviewDownButtonPressed(ActionEvent event) {
@@ -142,6 +143,7 @@ public class MyTunesController {
     }
     @FXML
     public void deleteSongButtonPressed(ActionEvent event) {
+        logic.deleteSong();
     }
     @FXML
     public void volumeDownButtonPressed(MouseEvent mouseEvent) {
