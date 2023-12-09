@@ -111,5 +111,15 @@ public class DataAccessObject {
     public void saveSongToPlaylist(String name, int id) {
         String s = "INSERT INTO PlaylistSong (playlist_name, song_id) VALUES ('"+name+"', "+id+")";
         updateSomething(s);
-    } //Sepc. script til at tilføje en sang til en playlist
+    } //Spec. script til at tilføje en sang til en playlist
+
+    public void deleteSong(String songTitle){
+        String s = "DELETE FROM Song WHERE title = ('"+songTitle+"')";
+        updateSomething(s);
+    } //Spec. script to delete a song
+
+    public void deletePlaylist(String name) {
+        String s = "DELETE FROM Playlist WHERE title = ('" + name + "')";
+        updateSomething(s);
+    } //Spec. script to delete playlist
 }

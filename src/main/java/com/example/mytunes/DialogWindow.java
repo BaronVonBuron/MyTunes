@@ -1,7 +1,6 @@
 package com.example.mytunes;
 
-import javafx.scene.control.TextInputDialog;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -20,6 +19,11 @@ public class DialogWindow {
     private String inputAuthor;
     private String inputGenre;
     private String media_uri;
+
+    // Empty constructor
+    public DialogWindow(){
+
+    }
 
     // Constructor for playlist creation
     public DialogWindow(boolean isPlaylist) {
@@ -132,6 +136,28 @@ public class DialogWindow {
         });
     }
 
+    public void delConfSongDialog(){
+        Alert window = new Alert(Alert.AlertType.CONFIRMATION);
+        window.setTitle("Delete a song");
+        window.setContentText("Are you sure you want to delete this song?");
+
+        Optional<ButtonType> result = window.showAndWait();
+        if (result.get() == ButtonType.OK){
+            System.out.println("Playlist deleted");
+        }
+    } //confirm window for deleting songs
+
+    public void delConfPlDialog(){
+        Alert window = new Alert(Alert.AlertType.CONFIRMATION);
+        window.setTitle("Delete a playlist");
+        window.setContentText("Are you sure you want to delete this playlist?");
+
+        Optional<ButtonType> result = window.showAndWait();
+        if (result.get() == ButtonType.OK){
+            System.out.println("Playlist deleted");
+        }
+    } //confirm window for deleting playlist
+
     // Getter methods for the user input
     public String getInputName() {
         return inputName;
@@ -148,4 +174,5 @@ public class DialogWindow {
     public String getInputGenre() {
         return inputGenre;
     }
+
 }

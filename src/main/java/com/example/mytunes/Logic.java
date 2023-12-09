@@ -24,6 +24,7 @@ public class Logic {
         this.dao = new DataAccessObject();
         this.songs = dao.returnAllSongs();
         this.playlists = dao.returnAllPlaylists();
+        this.dw = new DialogWindow();
     }
 
     public void saveSong(String title, String author, String genre, int duration, String filename){
@@ -139,5 +140,13 @@ public class Logic {
 
     public List<Song> returnSongsInPlaylist(Playlist selectedItem) {
             return dao.returnSongsInPlaylist(selectedItem);
+    }
+
+    public void deleteSong(){
+        dw.delConfSongDialog();
+    }
+
+    public void deletePl(){
+        dw.delConfPlDialog();
     }
 }
