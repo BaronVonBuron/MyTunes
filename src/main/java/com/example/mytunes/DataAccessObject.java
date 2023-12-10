@@ -65,7 +65,7 @@ public class DataAccessObject {
             System.out.println("Can't do requested statement: "+s+ " Because: "+ e.getErrorCode() + e.getMessage());
         }
         return songs;
-    } //load sangene fra db indtil der ikker er flere
+    } //load sangene fra db indtil der ikke er flere
 
     public List<Song> returnSongsInPlaylist(Playlist pl){
         List<Song> songsinPL = new ArrayList<>();
@@ -113,13 +113,17 @@ public class DataAccessObject {
         updateSomething(s);
     } //Spec. script til at tilføje en sang til en playlist
 
-    public void deleteSong(String songTitle){
-        String s = "DELETE FROM Song WHERE title = ('"+songTitle+"')";
+    public void deleteSong(int songID){
+        String s = "DELETE FROM PlaylistSong WHERE song_id = ('"+songID+"')";
         updateSomething(s);
+        String s1 = "DELETE FROM Song WHERE id = ('"+songID+"')";
+        updateSomething(s1);
     } //Spec. script to delete a song
 
     public void deletePlaylist(String name) {
-        String s = "DELETE FROM Playlist WHERE title = ('" + name + "')";
+        String s = "DELETE FROM PlaylistSong WHERE playlist_name = ('" + name + "')";
         updateSomething(s);
+        String s1 = "DELETE FROM Playlist WHERE name = ('" + name + "')";
+        updateSomething(s1);
     } //Spec. script to delete playlist
 }

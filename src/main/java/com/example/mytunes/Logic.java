@@ -6,25 +6,22 @@ package com.example.mytunes;
 //Den laver et object af DataAccess - som er dens vej ind i databasen.
 //Når der trykkes på en knap i programmet, så sender controlleren besked videre til denne klasse - så controller ikke har adgang til DB uden at gå igennem denne.
 
-import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
-import javafx.stage.Stage;
-import javafx.stage.Window;
-import javafx.util.Duration;
 import javafx.scene.media.Media;
+import javafx.util.Duration;
+
+import java.io.File;
+import java.util.List;
+import java.util.Objects;
 
 public class Logic {
     private DataAccessObject dao;
     private List<Playlist> playlists;
     private List<Song> songs;
-    private DialogWindow dw;
 
     public Logic() {
         this.dao = new DataAccessObject();
         this.songs = dao.returnAllSongs();
         this.playlists = dao.returnAllPlaylists();
-        this.dw = new DialogWindow();
     }
 
     public void saveSong(String title, String author, String genre, int duration, String filename){
@@ -92,10 +89,10 @@ public class Logic {
         }
     }
 
-    public void createSong(Window window) {
-        DialogWindow dialogWindow = new DialogWindow(false, window);
+    public void createSong() {
+        DialogWindow dialogWindow = new DialogWindow(false, "", "", "", "");
 
-        String selectedFilePath = dialogWindow.getInputTitle();
+        String selectedFilePath = dialogWindow.getMedia_uri();
 
 
         if (selectedFilePath != null && !selectedFilePath.isEmpty()) {
@@ -103,10 +100,9 @@ public class Logic {
             Duration mediaDuration = getMediaDuration(selectedFilePath);
 
 
-            DialogWindow dw = new DialogWindow(false, "title", "artist", "genre");
-            String title = dw.getInputTitle();
-            String artist = dw.getInputAuthor();
-            String genre = dw.getInputGenre();
+            String title = dialogWindow.getInputTitle();
+            String artist = dialogWindow.getInputAuthor();
+            String genre = dialogWindow.getInputGenre();
 
             if (title == null) {
                 title = "";
@@ -119,13 +115,14 @@ public class Logic {
             }
 
             // Pass the actual duration to the saveSong method
-            saveSong(title, artist, genre, (int) mediaDuration.toMillis(), selectedFilePath);
+            saveSong(title, artist, genre, (int) mediaDuration.toSeconds(), selectedFilePath);
         }
     }
 
 
     public void editSong(Song song) {
-        DialogWindow dw = new DialogWindow(false, song.getTitle(), song.getArtist(), song.getGenre());
+        DialogWindow dw = new DialogWindow(false, song.getTitle(), song.getArtist(), song.getGenre(), song.getFile().getName());
+        //Create a call to DAO to update song (either update or delete and save new).
     }
 
     public void editPlaylist(Playlist pl) {
@@ -142,11 +139,34 @@ public class Logic {
             return dao.returnSongsInPlaylist(selectedItem);
     }
 
-    public void deleteSong(){
-        dw.delConfSongDialog();
+    public void deleteSong(Song song){
+        DialogWindow dialogWindow = new DialogWindow(false, true);
+        if (dialogWindow.isDeleteOK()){
+            dao.deleteSong(song.getID());
+            Song tempSong = null;
+            for (Song s: songs){
+                if (song.getID() == s.getID()){
+                    tempSong = s;
+                }
+            }
+            songs.remove(tempSong);
+            System.out.println("Song deleted from Logic");
+        }
     }
 
-    public void deletePl(){
-        dw.delConfPlDialog();
+    public void deletePl(Playlist playlist){
+        DialogWindow dialogWindow = new DialogWindow(true, true);
+        if (dialogWindow.isDeleteOK()){
+            dao.deletePlaylist(playlist.getName());
+            Playlist tempPlaylist = null;
+            for (Playlist p: playlists){
+                if (p.getName() == playlist.getName()){
+                    tempPlaylist = p;
+                }
+            }
+            playlists.remove(tempPlaylist);
+            System.out.println("Song deleted from Logic");
+        }
+
     }
 }
