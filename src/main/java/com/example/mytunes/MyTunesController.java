@@ -108,6 +108,7 @@ public class MyTunesController {
     }
     @FXML
     public void backwardsButtonPressed(MouseEvent mouseEvent) {
+        playTimeSlider.setValue(0);
     }
     @FXML
     public void newPlaylistButtonPressed(ActionEvent event) {
@@ -221,4 +222,19 @@ public class MyTunesController {
     }
 
 
+    public void logoPressed(MouseEvent mouseEvent) {
+
+        //stopper sangen
+        if (jmp != null){
+            jmp.stop();
+        }
+        //sætter de 2 sliders til standard værdig
+        volumeSlider.setValue(0.25);
+        playTimeSlider.setValue(0);
+
+        //opdatere tabeler
+        updateTables();
+
+        System.out.println("Jazzify blev resetet");
+    }
 }
