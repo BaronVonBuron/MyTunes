@@ -120,7 +120,10 @@ public class MyTunesController {
     }
     @FXML
     public void deletePlaylistButtonPressed(ActionEvent event) {
-        logic.deletePl();
+        if ((Playlist) AllPlaylists.getSelectionModel().getSelectedItem() != null){
+            logic.deletePl((Playlist) AllPlaylists.getSelectionModel().getSelectedItem());
+            updateTables();
+        }else System.out.println("No playlist selected");
     }
     @FXML
     public void listviewDownButtonPressed(ActionEvent event) {
@@ -133,7 +136,7 @@ public class MyTunesController {
     }
     @FXML
     public void newSongButtonPressed(ActionEvent event) {
-        logic.createSong(AllSongs.getScene().getRoot().getScene().getWindow());
+        logic.createSong();
         updateTables();
     }
     @FXML
@@ -143,7 +146,11 @@ public class MyTunesController {
     }
     @FXML
     public void deleteSongButtonPressed(ActionEvent event) {
-        logic.deleteSong();
+        //Send over selected song to logic, so it can delete it properly
+        if ((Song) AllSongs.getSelectionModel().getSelectedItem() != null) {
+            logic.deleteSong((Song) AllSongs.getSelectionModel().getSelectedItem());
+            updateTables();
+        } else System.out.println("No song selected");
     }
     @FXML
     public void volumeDownButtonPressed(MouseEvent mouseEvent) {

@@ -1,15 +1,13 @@
 package com.example.mytunes;
 
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.stage.Window;
-import javafx.util.Duration;
 
 import java.io.File;
-import java.net.URISyntaxException;
-import java.net.URL;
 import java.util.Optional;
 
 public class DialogWindow {
@@ -19,10 +17,13 @@ public class DialogWindow {
     private String inputAuthor;
     private String inputGenre;
     private String media_uri;
+    private boolean deleteOK;
 
     // Empty constructor
-    public DialogWindow(){
-
+    public DialogWindow(boolean isPlaylist, boolean isDelete){
+        if (isPlaylist){
+            delConfPlDialog();
+        }else delConfSongDialog();
     }
 
     // Constructor for playlist creation
@@ -43,22 +44,105 @@ public class DialogWindow {
         }
     }
 
-    // Constructor for editing a song
-    public DialogWindow(boolean isPlaylist, String songTitle, String songAuthor, String songGenre) {
-        if (!isPlaylist) {
-            editSongDialog("Edit Song", null, songTitle, songAuthor, songGenre);
+    // Constructor for editing/adding a song
+    public DialogWindow(boolean isPlaylist, String songTitle, String songAuthor, String songGenre, String filepath) {
+        if (!isPlaylist && songTitle.isEmpty()) {
+            editAddSongDialog("Edit/Add Song", songTitle, songAuthor, songGenre, filepath);
+        } else if (!isPlaylist) {
+            editAddSongDialog("Edit/Add Song", songTitle, songAuthor, songGenre, filepath);
         }
     }
 
-    public DialogWindow(boolean isPlaylist, Window ownerWindow) {
-        if (!isPlaylist) {
-            addSongWithFileChooser("Add Song", ownerWindow);
-        }
+    // Method for combined Edit/Add Song window
+    public void editAddSongDialog(String title, String defaultTitle, String defaultAuthor, String defaultGenre, String filepath) {
+        Stage stage = new Stage();
+        stage.setTitle(title);
+
+        GridPane grid = new GridPane();
+        grid.setHgap(10);
+        grid.setVgap(10);
+
+        TextField titleField = new TextField();
+        titleField.setPromptText("Enter song title");
+        titleField.setText(defaultTitle);
+
+        TextField authorField = new TextField();
+        authorField.setPromptText("Enter song author");
+        authorField.setText(defaultAuthor);
+
+        TextField genreField = new TextField();
+        genreField.setPromptText("Enter song genre");
+        genreField.setText(defaultGenre);
+
+        TextField fileField = new TextField();
+        if (!filepath.isEmpty()){
+            fileField.setText(filepath);
+        }else fileField.setPromptText("Choose file");
+        fileField.setEditable(false);
+
+        Button chooseButton = new Button("Choose...");
+        chooseButton.setOnAction(e -> {
+            FileChooser fileChooser = new FileChooser();
+            fileChooser.setTitle(title);
+            String resourceUrl = System.getProperty("user.dir");
+            if (resourceUrl != null) {
+                try {
+                    File resourceDir = new File(resourceUrl);
+                    fileChooser.setInitialDirectory(resourceDir);
+                } catch (Exception e1) {
+                    e1.printStackTrace();
+                }
+            } else System.out.println("Couldn't find the URL of the Applications folder.");
+
+            fileChooser.getExtensionFilters().addAll(
+                    new FileChooser.ExtensionFilter("Audio Files", "*.mp3", "*.wav"),
+                    new FileChooser.ExtensionFilter("All Files", "*.*")
+            );
+
+            File selectedFile = fileChooser.showOpenDialog(stage);
+            if (selectedFile != null) {
+                fileField.setText(selectedFile.getName());
+                // If the user is adding a new song, auto-fill the title
+                if (defaultTitle.isEmpty()) {
+                    titleField.setText(selectedFile.getName());
+                }
+            }
+        });
+
+        Button saveButton = new Button("Save");
+        saveButton.setOnAction(e -> {
+            // Logic to save the song details
+            inputTitle = titleField.getText();
+            inputAuthor = authorField.getText();
+            inputGenre = genreField.getText();
+            media_uri = fileField.getText();
+            // Close the dialog after saving
+            stage.close();
+        });
+
+        Button cancelButton = new Button("Cancel");
+        cancelButton.setOnAction(e -> stage.close());
+
+        grid.add(new Label("Title:"), 0, 0);
+        grid.add(titleField, 1, 0);
+        grid.add(new Label("Artist:"), 0, 1);
+        grid.add(authorField, 1, 1);
+        grid.add(new Label("Genre:"), 0, 2);
+        grid.add(genreField, 1, 2);
+        grid.add(new Label("File:"), 0, 3);
+        grid.add(fileField, 1, 3);
+        grid.add(chooseButton, 2, 3);
+        grid.add(saveButton, 0, 4);
+        grid.add(cancelButton, 1, 4);
+
+        Scene scene = new Scene(grid);
+        stage.setScene(scene);
+        stage.showAndWait();
     }
 
 
 
-    private void addSongWithFileChooser(String title, Window mainWindow) {
+    /*private void addSongWithFileChooser(String title, Window mainWindow) {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle(title);
         //Nedenstående 9 linier er til for at få filechooseren til at gå ind i projektets hovedmappe.
@@ -86,7 +170,7 @@ public class DialogWindow {
         } else {
             System.out.println("No file selected");
         }
-    }
+    }*/
 
 
     private void showPlaylistDialog(String title, String header, String content) {
@@ -143,7 +227,8 @@ public class DialogWindow {
 
         Optional<ButtonType> result = window.showAndWait();
         if (result.get() == ButtonType.OK){
-            System.out.println("Playlist deleted");
+            deleteOK = true;
+            System.out.println("Song deleted");
         }
     } //confirm window for deleting songs
 
@@ -154,7 +239,8 @@ public class DialogWindow {
 
         Optional<ButtonType> result = window.showAndWait();
         if (result.get() == ButtonType.OK){
-            System.out.println("Playlist deleted");
+            deleteOK = true;
+            System.out.println("Playlist Deleted");
         }
     } //confirm window for deleting playlist
 
@@ -175,4 +261,11 @@ public class DialogWindow {
         return inputGenre;
     }
 
+    public String getMedia_uri() {
+        return media_uri;
+    }
+
+    public boolean isDeleteOK() {
+        return deleteOK;
+    }
 }
