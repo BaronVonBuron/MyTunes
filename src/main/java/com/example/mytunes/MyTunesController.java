@@ -117,7 +117,10 @@ public class MyTunesController {
     }
     @FXML
     public void editPlaylistButtonPressed(ActionEvent event) {
-        logic.editPlaylist((Playlist) AllPlaylists.getSelectionModel().getSelectedItem());
+        if ((Playlist) AllPlaylists.getSelectionModel().getSelectedItem() != null) {
+            logic.editPlaylist((Playlist) AllPlaylists.getSelectionModel().getSelectedItem());
+            updateTables();
+        }
     }
     @FXML
     public void deletePlaylistButtonPressed(ActionEvent event) {
@@ -142,8 +145,10 @@ public class MyTunesController {
     }
     @FXML
     public void editSongButtonPressed(ActionEvent event) {
-        logic.editSong((Song) AllSongs.getSelectionModel().getSelectedItem());
-        updateTables();
+        if ((Song) AllSongs.getSelectionModel().getSelectedItem() != null) {
+            logic.editSong((Song) AllSongs.getSelectionModel().getSelectedItem());
+            updateTables();
+        }
     }
     @FXML
     public void deleteSongButtonPressed(ActionEvent event) {
@@ -182,6 +187,9 @@ public class MyTunesController {
             pl.addSong(AllSongs.getSelectionModel().getSelectedItem());
             logic.addSongToPlaylist(pl, AllSongs.getSelectionModel().getSelectedItem());
             pl.setDuration();
+            this.songsInPlaylist = logic.returnSongsInPlaylist(pl);
+            ObservableList observableSongsInPlaylist = FXCollections.observableList(songsInPlaylist);
+            SongsInPlaylist.setItems(observableSongsInPlaylist);
             updateTables();
         } else System.out.println("Please select a playlist");
     }//Når man har valgt en sang og en playliste, og trykker på tilføj, så smides den valgte sang ind i valgte playliste.
