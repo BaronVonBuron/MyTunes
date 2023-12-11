@@ -8,7 +8,6 @@ package com.example.mytunes;
 
 import javafx.scene.media.Media;
 import javafx.util.Duration;
-
 import java.io.File;
 import java.util.List;
 import java.util.Objects;
@@ -122,7 +121,10 @@ public class Logic {
 
     public void editSong(Song song) {
         DialogWindow dw = new DialogWindow(false, song.getTitle(), song.getArtist(), song.getGenre(), song.getFile().getName());
-        //Create a call to DAO to update song (either update or delete and save new).
+        String oldTitle = song.getTitle();
+        String oldArtist = song.getArtist();
+        String oldGenre = song.getGenre();
+        dao.editSong(dw.getInputTitle(), dw.getInputAuthor(), dw.getInputGenre(), song.getID());
     }
 
     public void editPlaylist(Playlist pl) {
@@ -130,8 +132,10 @@ public class Logic {
         String newPlaylistName = editPlaylistDialog.getInputName();
 
         if (newPlaylistName != null && !newPlaylistName.isEmpty()) {
+            dao.editPlaylist(newPlaylistName, pl.getName());
             System.out.println("Playlist edited: " + newPlaylistName);
-            savePlaylist(newPlaylistName);
+            pl.setName(newPlaylistName);
+            System.out.println("Playlist name edited");
         }
     }
 

@@ -19,7 +19,7 @@ public class DialogWindow {
     private String media_uri;
     private boolean deleteOK;
 
-    // Empty constructor
+    // Constructor for deleting song/playlist
     public DialogWindow(boolean isPlaylist, boolean isDelete){
         if (isPlaylist){
             delConfPlDialog();
@@ -121,7 +121,13 @@ public class DialogWindow {
         });
 
         Button cancelButton = new Button("Cancel");
-        cancelButton.setOnAction(e -> stage.close());
+        cancelButton.setOnAction(e -> {
+            inputTitle = titleField.getText();
+            inputAuthor = authorField.getText();
+            inputGenre = genreField.getText();
+            media_uri = fileField.getText();
+            stage.close();
+        });
 
         grid.add(new Label("Title:"), 0, 0);
         grid.add(titleField, 1, 0);

@@ -126,4 +126,17 @@ public class DataAccessObject {
         String s1 = "DELETE FROM Playlist WHERE name = ('" + name + "')";
         updateSomething(s1);
     } //Spec. script to delete playlist
+
+    public void editPlaylist(String newPlaylistName, String oldPlaylistName) {
+        String s = "UPDATE PlaylistSong SET playlist_name = '"+newPlaylistName+"' " + "WHERE playlist_name = '"+oldPlaylistName+"'";
+        updateSomething(s);
+        String s1 = "UPDATE Playlist SET name = '"+newPlaylistName+"' " + "WHERE name = '"+oldPlaylistName+"'";
+        updateSomething(s1);
+    }
+
+
+    public void editSong(String newTitle, String newArtist, String newGenre, int id) {
+        String s = "UPDATE Song SET title = '"+newTitle+"', artist = '"+newArtist+"', genre = '"+newGenre+"' WHERE ID = "+id+";";
+        updateSomething(s);
+    }
 }
