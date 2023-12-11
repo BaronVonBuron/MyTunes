@@ -24,12 +24,19 @@ public class JazzMediaPlayer {
             System.out.println("Media player stalled");
         });
 
+        //sætter max value til antal sekunder af sangenen
+        mediaPlayer.setOnReady(() -> {
+            Duration duration = mediaPlayer.getMedia().getDuration();
+            playTimeSlider.setMax(duration.toSeconds());
+        });
+        //lytter til ændringer i afspilningstiden af sange og
         mediaPlayer.currentTimeProperty().addListener((observable, oldValue, newValue) -> {
             if (!playTimeSlider.isValueChanging()) {
                 playTimeSlider.setValue(newValue.toSeconds());
             }
         });
 
+        //lytter til ændringer hvis man river i slideren
         playTimeSlider.valueProperty().addListener((observable, oldValue, newValue) -> {
             if (Math.abs(newValue.doubleValue() - mediaPlayer.getCurrentTime().toSeconds()) > 0.5) {
                 mediaPlayer.seek(Duration.seconds(newValue.doubleValue()));
