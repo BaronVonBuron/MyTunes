@@ -10,9 +10,9 @@
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/mytunes/DataAccessObject.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/mytunes/DataAccessObject.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/mytunes/DialogWindow.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/mytunes/DialogWindow.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/mytunes/Logic.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/mytunes/Logic.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/mytunes/MyTunesController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/mytunes/MyTunesController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/mytunes/Playlist.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/mytunes/Playlist.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -96,7 +96,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "AndersMandag",
+    "git-widget-placeholder": "AndersTirsdagAften",
     "ignore.virus.scanning.warn.message": "true",
     "jdk.selected.JAVA_MODULE": "openjdk-21",
     "last_opened_file_path": "C:/Users/damer/Documents/GitHub/MyTunes/src/main/mssql-jdbc-12.4.2.jre11.jar",
@@ -150,6 +150,7 @@
       <workItem from="1702230362330" duration="6090000" />
       <workItem from="1702280934416" duration="244000" />
       <workItem from="1702281591452" duration="3181000" />
+      <workItem from="1702398940734" duration="6295000" />
     </task>
     <task id="LOCAL-00001" summary="Created DB and made some functions to save/load stuff from DB - everything untested.">
       <option name="closed" value="true" />

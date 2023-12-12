@@ -8,7 +8,9 @@ public class Playlist {
 
     private String name;
     private List<Song> songs;
-    private int duration;
+    private int duration, numberOfSongs;
+
+
 
     public Playlist(String name) {
         this.name = name;
@@ -31,9 +33,17 @@ public class Playlist {
     }
 
 
+    public int getNumberOfSongs() {
+        return numberOfSongs;
+    }
+
+    public void setNumberOfSongs() {
+        this.numberOfSongs = songs.size();
+    }
     public void addSong(Song s){
         this.songs.add(s);
         setDuration();
+        setNumberOfSongs();
     }
 
 
@@ -51,14 +61,25 @@ public class Playlist {
 
     public void setSongs(List<Song> songs) {
         this.songs = songs;
+        setNumberOfSongs();
+    }
+
+    public void removeSong(int id) {
+        for (Song s : songs) {
+            if (s.getID() == id){
+                songs.remove(s);
+                break;
+            }
+        }
     }
 
     @Override
     public String toString() {
         return "Playlist{" +
                 "name='" + name + '\'' +
-                ", songs=" + songs.size() +
+                ", songs=" + songs +
                 ", duration=" + duration +
+                ", numberOfSongs=" + numberOfSongs +
                 '}';
     }
 }
