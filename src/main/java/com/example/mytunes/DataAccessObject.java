@@ -139,4 +139,9 @@ public class DataAccessObject {
         String s = "UPDATE Song SET title = '"+newTitle+"', artist = '"+newArtist+"', genre = '"+newGenre+"' WHERE ID = "+id+";";
         updateSomething(s);
     }
+
+    public void deleteSongFromPlaylist(int id) {
+        String s = "DELETE FROM PlaylistSong WHERE song_id = "+id;
+        updateSomething(s);
+    }
 }

@@ -9,8 +9,8 @@ package com.example.mytunes;
 import javafx.scene.media.Media;
 import javafx.util.Duration;
 import java.io.File;
+import java.util.Collections;
 import java.util.List;
-import java.util.Objects;
 
 public class Logic {
     private DataAccessObject dao;
@@ -21,6 +21,9 @@ public class Logic {
         this.dao = new DataAccessObject();
         this.songs = dao.returnAllSongs();
         this.playlists = dao.returnAllPlaylists();
+        for (Playlist p : playlists) {
+            p.setSongs(dao.returnSongsInPlaylist(p));
+        }
     }
 
     public void saveSong(String title, String author, String genre, int duration, String filename){
@@ -33,6 +36,7 @@ public class Logic {
     public List<Playlist> getPlaylists() {
         for (Playlist p : playlists) {
             p.setDuration();
+            p.setNumberOfSongs();
         }
         return playlists;
     }
@@ -51,6 +55,7 @@ public class Logic {
     public void addSongToPlaylist(Playlist playlist, Song song){
         playlist.addSong(song);
         dao.saveSongToPlaylist(playlist.getName(), song.getID());
+        playlist.setNumberOfSongs();
     }
 
 
@@ -169,8 +174,23 @@ public class Logic {
                 }
             }
             playlists.remove(tempPlaylist);
-            System.out.println("Song deleted from Logic");
+            System.out.println("Playlist deleted from Logic");
         }
 
+    }
+
+    public void deleteSongFromPlaylist(Song song, Playlist tempPL) {
+        dao.deleteSongFromPlaylist(song.getID());
+        tempPL.removeSong(song.getID());
+        tempPL.setNumberOfSongs();
+    }
+
+    public void moveSongDownInPlaylist(Song song, Playlist playlist) {
+        if (playlist.getSongs().size() > 1 && playlist.getSongs().getLast() != song){
+            int currentIndex = playlist.getSongs().indexOf(song);
+            int newIndex = playlist.getSongs().indexOf(song) + 1;
+            System.out.println("current index: "+currentIndex+" new index: "+newIndex);
+            //Collections.swap(playlist.getSongs(), currentIndex, newIndex);
+        }
     }
 }

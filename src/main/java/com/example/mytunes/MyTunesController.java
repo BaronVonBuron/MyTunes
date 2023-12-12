@@ -37,6 +37,7 @@ public class MyTunesController {
     private List<Song> songsInPlaylist;
     @FXML
     private ListView SongsInPlaylist;
+    private Playlist tempPL;
 
     private final Logic logic = new Logic();
     private JazzMediaPlayer jmp;
@@ -63,6 +64,9 @@ public class MyTunesController {
     public void initialize() {
         System.out.println("Controller initialized");//Den er her for at vise at controlleren bliver startet ordentligt.
         updateTables();//loader tableviews så sange og playlister er der fra starten af appen
+        if (!allPlaylists.isEmpty() && tempPL == null){
+            tempPL = (Playlist) allPlaylists.getFirst();
+        }
 
         jmp = new JazzMediaPlayer("Billie_Holiday_-_Blue_Moon.mp3", playTimeSlider);
 
@@ -79,6 +83,7 @@ public class MyTunesController {
     public void updateTables(){
         this.allSongs = FXCollections.observableList(logic.getSongs());
         this.allPlaylists = FXCollections.observableList(logic.getPlaylists());
+
         AllSongs.setItems(allSongs);
         AllPlaylists.setItems(allPlaylists);
 
@@ -89,12 +94,18 @@ public class MyTunesController {
 
 
         Name.setCellValueFactory(new PropertyValueFactory<>("name"));
-        numberOfSongsInPlaylist.setCellValueFactory(new PropertyValueFactory<>("songs"));
+        numberOfSongsInPlaylist.setCellValueFactory(new PropertyValueFactory<>("numberOfSongs"));
         playlistDuration.setCellValueFactory(new PropertyValueFactory<>("duration"));
 
         AllSongs.refresh();
         AllPlaylists.refresh();
         SongsInPlaylist.refresh();
+    }
+
+    public void updateSongsInPlaylist(Playlist playlist){
+        this.songsInPlaylist = logic.returnSongsInPlaylist(playlist);
+        ObservableList observableSongsInPlaylist = FXCollections.observableList(songsInPlaylist);
+        SongsInPlaylist.setItems(observableSongsInPlaylist);
     }
 
     @FXML
@@ -131,12 +142,22 @@ public class MyTunesController {
     }
     @FXML
     public void listviewDownButtonPressed(ActionEvent event) {
+        //det er jo helt fucked det her
+        /*if (SongsInPlaylist.getSelectionModel().getSelectedItem() != null){
+            logic.moveSongDownInPlaylist((Song) SongsInPlaylist.getSelectionModel().getSelectedItem(), tempPL);
+            updateTables();
+        }*/
     }
     @FXML
     public void listviewUpButtonPressed(ActionEvent event) {
     }
     @FXML
     public void deleteSongLWButtonPressed(ActionEvent event) {
+        if (SongsInPlaylist.getSelectionModel().getSelectedItem() != null){
+            logic.deleteSongFromPlaylist((Song) SongsInPlaylist.getSelectionModel().getSelectedItem(), tempPL);
+            updateTables();
+            updateSongsInPlaylist(tempPL);
+        }
     }
     @FXML
     public void newSongButtonPressed(ActionEvent event) {
@@ -175,23 +196,18 @@ public class MyTunesController {
         if(mouseEvent.getButton().equals(MouseButton.PRIMARY) && mouseEvent.getClickCount() == 2 && AllPlaylists.getSelectionModel().getSelectedItem() != null) {
             Playlist pl = (Playlist) AllPlaylists.getSelectionModel().getSelectedItem();
             pl.setDuration();
-            this.songsInPlaylist = logic.returnSongsInPlaylist(pl);
-            ObservableList observableSongsInPlaylist = FXCollections.observableList(songsInPlaylist);
-            SongsInPlaylist.setItems(observableSongsInPlaylist);
+            tempPL = pl;
+            updateSongsInPlaylist(pl);
         }
     } //når man dobble clikker på en playliste kommer der listView op med sangene i den
 
     public void addSongToPlaylist(ActionEvent actionEvent) {
-        if (AllPlaylists.getSelectionModel().getSelectedItem() != null) {
+        if (AllPlaylists.getSelectionModel().getSelectedItem() != null && AllSongs.getSelectionModel().getSelectedItem() != null) {
             Playlist pl = (Playlist) AllPlaylists.getSelectionModel().getSelectedItem();
-            pl.addSong(AllSongs.getSelectionModel().getSelectedItem());
             logic.addSongToPlaylist(pl, AllSongs.getSelectionModel().getSelectedItem());
-            pl.setDuration();
-            this.songsInPlaylist = logic.returnSongsInPlaylist(pl);
-            ObservableList observableSongsInPlaylist = FXCollections.observableList(songsInPlaylist);
-            SongsInPlaylist.setItems(observableSongsInPlaylist);
             updateTables();
-        } else System.out.println("Please select a playlist");
+            updateSongsInPlaylist(pl);
+        } else System.out.println("Please select a playlist and/or a song");
     }//Når man har valgt en sang og en playliste, og trykker på tilføj, så smides den valgte sang ind i valgte playliste.
 
     public void searchButtonPressed(MouseEvent mouseEvent) {
