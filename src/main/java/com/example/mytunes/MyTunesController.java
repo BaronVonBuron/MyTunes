@@ -3,10 +3,8 @@ package com.example.mytunes;
 import javafx.animation.Interpolator;
 import javafx.animation.PathTransition;
 import javafx.animation.Timeline;
-import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -14,14 +12,11 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Font;
-import javafx.stage.Stage;
 import javafx.util.Duration;
 
-import java.net.Proxy;
 import java.util.List;
 
 
@@ -68,15 +63,12 @@ public class MyTunesController {
             tempPL = (Playlist) allPlaylists.getFirst();
         }
 
-        jmp = new JazzMediaPlayer("Billie_Holiday_-_Blue_Moon.mp3", playTimeSlider);
+        jmp = new JazzMediaPlayer(logic.getSongs().getFirst(), playTimeSlider);
 
         volumeSlider.setValue(0.25);
-
         volumeSlider.valueProperty().addListener((observable, oldValue, newValue) -> {
             volumeSliderMoved(newValue.doubleValue());
         });
-
-        currentSongPlaying();
 
     }
 
@@ -117,9 +109,27 @@ public class MyTunesController {
     @FXML
     public void forwardButtonPressed(MouseEvent mouseEvent) {
     }
+
+    @FXML
+    public void allSongsSongClicked(MouseEvent mouseEvent){
+        if(mouseEvent.getButton().equals(MouseButton.PRIMARY) && mouseEvent.getClickCount() == 2 && (Song) AllSongs.getSelectionModel().getSelectedItem() != null){
+            jmp.setMedia((Song) AllSongs.getSelectionModel().getSelectedItem());
+            jmp.setVolume(this.volumeSlider.getValue());
+            currentSongPlaying();
+        }
+    }
+    @FXML
+    public void songFromPlaylistClicked(MouseEvent mouseEvent) {
+        if (mouseEvent.getButton().equals(MouseButton.PRIMARY) && mouseEvent.getClickCount() == 2 && (Song) SongsInPlaylist.getSelectionModel().getSelectedItem() != null) {
+            jmp.setMedia((Song) SongsInPlaylist.getSelectionModel().getSelectedItem());
+            jmp.setVolume(this.volumeSlider.getValue());
+            currentSongPlaying();
+        }
+    }
     @FXML
     public void backwardsButtonPressed(MouseEvent mouseEvent) {
         playTimeSlider.setValue(0);
+        currentSongPlaying();
     }
     @FXML
     public void newPlaylistButtonPressed(ActionEvent event) {
@@ -182,10 +192,12 @@ public class MyTunesController {
     @FXML
     public void volumeDownButtonPressed(MouseEvent mouseEvent) {
         jmp.volumeIncrementDown();
+        this.volumeSlider.setValue(jmp.getMediaPlayer().getVolume());
     }
     @FXML
     public void VolumeUpButtonPressed(MouseEvent mouseEvent) {
         jmp.volumeIncrementUp();
+        this.volumeSlider.setValue(jmp.getMediaPlayer().getVolume());
     }
     @FXML
     public void muteButtonPressed(MouseEvent mouseEvent) {
@@ -221,8 +233,9 @@ public class MyTunesController {
         jmp.setVolume(newValue);
     }
 
-    public void currentSongPlaying(){
-        String title = "Blue moon risin'"; //skal laves om til jmp.getTitle (ikke lavet endnu)
+    public void currentSongPlaying(){//TODO: Vi skal have gjort så den stopper den gamle sangs titel i at snurre når en ny starter.
+        String title = "";
+        title = jmp.getSong().getTitle();
             char[] chars = title.toCharArray();
 
             for (int i = 0; i < chars.length; i++) {
@@ -270,4 +283,5 @@ public class MyTunesController {
 
         System.out.println("Jazzify blev resetet");
     }
+
 }
