@@ -1,10 +1,9 @@
 package com.example.mytunes;
 
-import javafx.beans.property.DoubleProperty;
-import javafx.beans.property.SimpleDoubleProperty;
 import javafx.scene.control.Slider;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
+import javafx.scene.media.MediaPlayer.Status;
 import javafx.util.Duration;
 
 import java.io.File;
@@ -12,14 +11,24 @@ import java.io.File;
 public class JazzMediaPlayer {
     private MediaPlayer mediaPlayer;
     private Slider playTimeSlider;
+    private Media media;
+    private Song song;
 
 
-    public JazzMediaPlayer(String filePath, Slider playTimeSlider) {
-        String uriString = new File(filePath).toURI().toString();
-        Media media = new Media(uriString);
-        mediaPlayer = new MediaPlayer(media);
+    public JazzMediaPlayer(Song song, Slider playTimeSlider) {
+        String uriString = song.getFile().toURI().toString();
+        this.song = song;
+        media = new Media(uriString);
         this.playTimeSlider = playTimeSlider;
+        newMediaPlayer();
+    }
 
+    public void newMediaPlayer(){
+        if (mediaPlayer != null){
+            mediaPlayer.dispose();
+        }
+
+        mediaPlayer = new MediaPlayer(this.media);
         mediaPlayer.setOnStalled(() -> {
             System.out.println("Media player stalled");
         });
@@ -27,32 +36,41 @@ public class JazzMediaPlayer {
         //sætter max value til antal sekunder af sangenen
         mediaPlayer.setOnReady(() -> {
             Duration duration = mediaPlayer.getMedia().getDuration();
-            playTimeSlider.setMax(duration.toSeconds());
+            this.playTimeSlider.setMax(duration.toSeconds());
         });
         //lytter til ændringer i afspilningstiden af sange og
         mediaPlayer.currentTimeProperty().addListener((observable, oldValue, newValue) -> {
-            if (!playTimeSlider.isValueChanging()) {
-                playTimeSlider.setValue(newValue.toSeconds());
+            if (!this.playTimeSlider.isValueChanging()) {
+                this.playTimeSlider.setValue(newValue.toSeconds());
             }
         });
 
         //lytter til ændringer hvis man river i slideren
-        playTimeSlider.valueProperty().addListener((observable, oldValue, newValue) -> {
+        this.playTimeSlider.valueProperty().addListener((observable, oldValue, newValue) -> {
             if (Math.abs(newValue.doubleValue() - mediaPlayer.getCurrentTime().toSeconds()) > 0.5) {
                 mediaPlayer.seek(Duration.seconds(newValue.doubleValue()));
             }
         });
-
     }
 
-    public void play() {//få lavet så den kan pause. mediaplayer.hvis spiller, then pause - ellers play.
-        mediaPlayer.play();
-        mediaPlayer.setVolume(0.25);
-        System.out.println("JMP play yes");
+    public MediaPlayer getMediaPlayer() {
+        return mediaPlayer;
     }
 
-    public void pause() {
-        mediaPlayer.pause();
+    public void setMedia(Song song) {
+        this.song = song;
+        String filepath = song.getFile().toURI().toString();
+        this.media = new Media(filepath);
+        newMediaPlayer();
+        this.mediaPlayer.play();
+    }
+
+    public void play() {
+        if (mediaPlayer.getStatus() == Status.PLAYING) {
+            mediaPlayer.pause();
+        } else if (mediaPlayer.getStatus() != Status.PLAYING) {
+            mediaPlayer.play();
+        }
     }
 
     public void stop() {
@@ -65,11 +83,15 @@ public class JazzMediaPlayer {
 
 
     public void volumeIncrementDown() {
-
+        if (mediaPlayer.getVolume() > 0.10){
+            mediaPlayer.setVolume(mediaPlayer.getVolume() - 0.10);
+        }
     }
 
     public void volumeIncrementUp() {
-
+        if (mediaPlayer.getVolume() < 0.90){
+            mediaPlayer.setVolume(mediaPlayer.getVolume() + 0.10);
+        }
     }
 
     public void mute() {
@@ -87,5 +109,7 @@ public class JazzMediaPlayer {
     }
 
 
-
+    public Song getSong() {
+        return this.song;
+    }
 }
