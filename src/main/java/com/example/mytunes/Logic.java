@@ -65,10 +65,12 @@ public class Logic {
 
     public void nextSong() {
         //stop nuværende sang, og så videre til næste sang på playlisten.
+        //tror bare denne her skal slettes - mvh. Jacob
     }
 
     public void replayOrGoBack() {
         //tilbageknap - replay ved ét tryk, gå til forrige sang ved dobbelttryk. Hvis sangen har kørt i under 5 sekunder kræves kun ét tryk for at gå tilbage.
+        //tror bare denne her skal slettes - mvh. Jacob
     }
 
     public void createPlaylist() {

@@ -63,7 +63,7 @@ public class MyTunesController {
             tempPL = (Playlist) allPlaylists.getFirst();
         }
 
-        jmp = new JazzMediaPlayer(logic.getSongs().getFirst(), playTimeSlider);
+        jmp = new JazzMediaPlayer(logic.getSongs().getFirst(), playTimeSlider, logic.getSongs());
 
         volumeSlider.setValue(0.25);
         volumeSlider.valueProperty().addListener((observable, oldValue, newValue) -> {
@@ -108,6 +108,10 @@ public class MyTunesController {
     }
     @FXML
     public void forwardButtonPressed(MouseEvent mouseEvent) {
+        playTimeSlider.setValue(0);
+        jmp.playNextSong();
+        currentSongPlaying();
+        System.out.println("NY SANG");
     }
 
     @FXML
@@ -128,8 +132,14 @@ public class MyTunesController {
     }
     @FXML
     public void backwardsButtonPressed(MouseEvent mouseEvent) {
-        playTimeSlider.setValue(0);
-        currentSongPlaying();
+        if (playTimeSlider.getValue() < 5){
+            jmp.playPreviousSong();
+            System.out.println("Spiller tidligere sang");
+        } else {
+            playTimeSlider.setValue(0);
+            currentSongPlaying();
+            System.out.println("starter sang forfra");
+        }
     }
     @FXML
     public void newPlaylistButtonPressed(ActionEvent event) {
