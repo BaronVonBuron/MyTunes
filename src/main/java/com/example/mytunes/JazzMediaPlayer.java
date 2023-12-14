@@ -7,20 +7,23 @@ import javafx.scene.media.MediaPlayer.Status;
 import javafx.util.Duration;
 
 import java.io.File;
+import java.util.List;
 
 public class JazzMediaPlayer {
     private MediaPlayer mediaPlayer;
     private Slider playTimeSlider;
     private Media media;
     private Song song;
+    private List<Song> allSongs;
 
 
-    public JazzMediaPlayer(Song song, Slider playTimeSlider) {
+    public JazzMediaPlayer(Song song, Slider playTimeSlider, List<Song> allSongs) {
         String uriString = song.getFile().toURI().toString();
         this.song = song;
         media = new Media(uriString);
         this.playTimeSlider = playTimeSlider;
         newMediaPlayer();
+        this.allSongs = allSongs;
     }
 
     public void newMediaPlayer(){
@@ -111,5 +114,35 @@ public class JazzMediaPlayer {
 
     public Song getSong() {
         return this.song;
+    }
+    public void playPreviousSong(){
+        int currentIndex = allSongs.indexOf(this.song);
+
+        if (currentIndex > 0 && !allSongs.isEmpty()) {
+            Song previousSong = allSongs.get(currentIndex - 1);
+
+            setMedia(previousSong);
+            mediaPlayer.play();
+            this.song = previousSong;
+        }
+    }
+    public void playNextSong() {
+        int currentIndex = allSongs.indexOf(this.song);
+
+        if (!allSongs.isEmpty()) {
+            if (currentIndex == allSongs.size() - 1) {
+                // Starter forfra i listen
+                Song nextSong = allSongs.get(0);
+                setMedia(nextSong);
+                mediaPlayer.play();
+                this.song = nextSong;
+            } else {
+                // skifter til næste sang i listen
+                Song nextSong = allSongs.get(currentIndex + 1);
+                setMedia(nextSong);
+                mediaPlayer.play();
+                this.song = nextSong;
+            }
+        }
     }
 }
