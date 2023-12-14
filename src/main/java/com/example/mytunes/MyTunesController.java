@@ -242,8 +242,21 @@ public class MyTunesController {
             String searchText = searchField.getText().toLowerCase();
 
             List<Song> searchResults = new ArrayList<>();
+            //søger efter title
             for (Song song : logic.getSongs()) {
                 if (song.getTitle().toLowerCase().contains(searchText)){
+                    searchResults.add(song);
+                }
+            }
+            //søger efter artist
+            for (Song song : logic.getSongs()) {
+                if (song.getArtist().toLowerCase().contains(searchText)){
+                    searchResults.add(song);
+                }
+            }
+            //søger efter genre
+            for (Song song : logic.getSongs()) {
+                if (song.getGenre().toLowerCase().contains(searchText)){
                     searchResults.add(song);
                 }
             }
@@ -260,9 +273,21 @@ public class MyTunesController {
         String searchText = searchField.getText().toLowerCase();
 
         List<Song> searchResults = new ArrayList<>();
-
+        //søger efter title
         for (Song song : logic.getSongs()) {
             if (song.getTitle().toLowerCase().contains(searchText)) {
+                searchResults.add(song);
+            }
+        }
+        //søger efter artist
+        for (Song song : logic.getSongs()) {
+            if (song.getArtist().toLowerCase().contains(searchText)) {
+                searchResults.add(song);
+            }
+        }
+        //søger efter genre
+        for (Song song : logic.getSongs()) {
+            if (song.getGenre().toLowerCase().contains(searchText)) {
                 searchResults.add(song);
             }
         }
