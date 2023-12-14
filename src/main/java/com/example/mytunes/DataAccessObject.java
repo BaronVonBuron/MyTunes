@@ -58,7 +58,8 @@ public class DataAccessObject {
                 String genre = rs.getString("genre");
                 String filename = rs.getString("filename");
                 int ID = rs.getInt("ID");
-                songs.add(new Song(title, artist, genre, ID, filename));
+                int position = rs.getInt("position");
+                songs.add(new Song(title, artist, genre, ID, filename, position));
             }
             System.out.println("Statement: "+s+" Has been executed.");
         } catch (SQLException e) {
@@ -87,7 +88,8 @@ public class DataAccessObject {
                     String genre = rs1.getString("genre");
                     String filename = rs1.getString("filename");
                     int ID = rs1.getInt("ID");
-                    songsinPL.add(new Song(title, artist, genre, ID, filename));
+                    int position = rs1.getInt("position");
+                    songsinPL.add(new Song(title, artist, genre, ID, filename, position));
                 }
             }
             System.out.println("Statement: "+s+" Has been executed.");
@@ -108,8 +110,8 @@ public class DataAccessObject {
     } //Spec. script til at tilføje playlist
 
 
-    public void saveSongToPlaylist(String name, int id) {
-        String s = "INSERT INTO PlaylistSong (playlist_name, song_id) VALUES ('"+name+"', "+id+")";
+    public void saveSongToPlaylist(String name, int id, int position) {
+        String s = "INSERT INTO PlaylistSong (playlist_name, song_id, position) VALUES ('"+name+"', "+id+", "+position+")";
         updateSomething(s);
     } //Spec. script til at tilføje en sang til en playlist
 
@@ -145,4 +147,20 @@ public class DataAccessObject {
         updateSomething(s);
     }
 
+
+    public int getSongPosition(int id, Playlist selectedItem){
+        String s = "SELECT * FROM PlaylistSong WHERE song_id = '"+id+"' AND playlist_name = '"+selectedItem.getName()+"'";
+        Statement database;
+        int pos = 0;
+        try {
+            database = con.createStatement();
+            ResultSet rs = database.executeQuery(s);
+            while (rs.next()) {
+                pos = rs.getInt("position");
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return pos;
+    }
 }

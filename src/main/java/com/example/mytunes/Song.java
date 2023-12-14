@@ -12,16 +12,26 @@ public class Song {
     private String title, artist, genre, filename;
     private File file;
     private Media media;
-    private javafx.util.Duration duration;
+    private Duration duration;
+    private int position;
 
-    public Song(String title, String artist, String genre, int ID, String filename) {
+    public Song(String title, String artist, String genre, int ID, String filename, int position) {
         this.ID = ID;
         this.title = title;
         this.artist = artist;
         this.genre = genre;
         this.filename = filename;
+        this.position = position;
         setFile(filename);
         setMedia();
+    }
+
+    public void setPosition(int position) {
+        this.position = position;
+    }
+
+    public int getPosition() {
+        return position;
     }
 
     private void setMedia() {
@@ -98,6 +108,6 @@ public class Song {
 
     @Override
     public String toString() {
-        return title + " - " + artist + " - " + genre + " - " + (int) duration.toSeconds();
+        return position + " - " + title + " - " + artist + " - " + (int) duration.toSeconds();
     }
 }

@@ -41,6 +41,11 @@ public class Playlist {
         this.numberOfSongs = songs.size();
     }
     public void addSong(Song s){
+        if (!songs.isEmpty()) {
+            for (int i = 0; i < songs.size(); i++) {
+                s.setPosition(i + 2);
+            }
+        }else s.setPosition(1);
         this.songs.add(s);
         setDuration();
         setNumberOfSongs();
@@ -60,7 +65,9 @@ public class Playlist {
     }
 
     public void setSongs(List<Song> songs) {
-        this.songs = songs;
+        for (Song s : songs) {
+            addSong(s);
+        }
         setNumberOfSongs();
     }
 
