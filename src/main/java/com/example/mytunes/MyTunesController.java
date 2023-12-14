@@ -9,6 +9,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -16,7 +17,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Font;
 import javafx.util.Duration;
-
+import javafx.scene.control.TextField;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -27,15 +28,19 @@ public class MyTunesController {
     private AnchorPane anchorPane;
     @FXML
     private Circle circlePath;//bane til label af sang, der afspilles
-
+    @FXML
+    private TextField searchField;
     @FXML
     private Slider volumeSlider, playTimeSlider;
     private ObservableList allSongs, allPlaylists;
     private List<Song> songsInPlaylist;
+    private List<PathTransition> pathTransitions = new ArrayList<>();
+
     @FXML
     private ListView SongsInPlaylist;
     private Playlist tempPL;
-
+    @FXML
+    private ImageView searchButton;
     private final Logic logic = new Logic();
     private JazzMediaPlayer jmp;
     @FXML
@@ -232,9 +237,38 @@ public class MyTunesController {
     }//Når man har valgt en sang og en playliste, og trykker på tilføj, så smides den valgte sang ind i valgte playliste.
 
     public void searchButtonPressed(MouseEvent mouseEvent) {
+        System.out.println("knappen virker");
+        if (searchField != null){
+            String searchText = searchField.getText().toLowerCase();
+
+            List<Song> searchResults = new ArrayList<>();
+            for (Song song : logic.getSongs()) {
+                if (song.getTitle().toLowerCase().contains(searchText)){
+                    searchResults.add(song);
+                }
+            }
+
+            ObservableList<Song> observableSearchResults = FXCollections.observableList(searchResults);
+            AllSongs.setItems(observableSearchResults);
+        } else {
+            System.out.println("whata motherfucka");
+        }
+
     }
 
     public void searchFieldAction(ActionEvent event) {
+        String searchText = searchField.getText().toLowerCase();
+
+        List<Song> searchResults = new ArrayList<>();
+
+        for (Song song : logic.getSongs()) {
+            if (song.getTitle().toLowerCase().contains(searchText)) {
+                searchResults.add(song);
+            }
+        }
+
+        ObservableList<Song> observableSearchResults = FXCollections.observableList(searchResults);
+        AllSongs.setItems(observableSearchResults);
     }
 
     @FXML
@@ -242,7 +276,9 @@ public class MyTunesController {
         jmp.setVolume(newValue);
     }
 
-    public void currentSongPlaying(){//TODO: Vi skal have gjort så den stopper den gamle sangs titel i at snurre når en ny starter.
+    public void currentSongPlaying(){
+        stopPT();
+
         String title = "";
         title = jmp.getSong().getTitle();
             char[] chars = title.toCharArray();
@@ -273,7 +309,19 @@ public class MyTunesController {
                 pT.setCycleCount(Timeline.INDEFINITE);
                 pT.setInterpolator(Interpolator.LINEAR);
                 pT.play();
+                pathTransitions.add(pT);
+
+
+
         }
+    }
+
+    private void stopPT(){
+        for (PathTransition pt : pathTransitions){
+            pt.stop();
+            anchorPane.getChildren().remove(pt.getNode());
+        }
+        pathTransitions.clear();
     }
 
 
@@ -287,8 +335,13 @@ public class MyTunesController {
         volumeSlider.setValue(0.25);
         playTimeSlider.setValue(0);
 
+        //kalder stop patch transtion metoden
+        stopPT();
+
         //opdatere tabeler
         updateTables();
+
+
 
         System.out.println("Jazzify blev resetet");
     }

@@ -147,6 +147,7 @@ public class DataAccessObject {
         updateSomething(s);
     }
 
+
     public int getSongPosition(int id, Playlist selectedItem){
         String s = "SELECT * FROM PlaylistSong WHERE song_id = '"+id+"' AND playlist_name = '"+selectedItem.getName()+"'";
         Statement database;

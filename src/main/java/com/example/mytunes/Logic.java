@@ -201,4 +201,5 @@ public class Logic {
             //Collections.swap(playlist.getSongs(), currentIndex, newIndex);
         }
     }
+
 }
