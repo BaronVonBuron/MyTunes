@@ -54,7 +54,7 @@ public class Logic {
 
     public void addSongToPlaylist(Playlist playlist, Song song){
         playlist.addSong(song);
-        dao.saveSongToPlaylist(playlist.getName(), song.getID());
+        dao.saveSongToPlaylist(playlist.getName(), song.getID(), playlist.getSongs().size());
         playlist.setNumberOfSongs();
     }
 
@@ -146,8 +146,14 @@ public class Logic {
         }
     }
 
-    public List<Song> returnSongsInPlaylist(Playlist selectedItem) {
-            return dao.returnSongsInPlaylist(selectedItem);
+    public List<Song> returnSongsInPlaylist(Playlist selectedItem){
+        List<Song> templist = dao.returnSongsInPlaylist(selectedItem);
+        if (!templist.isEmpty()){
+            for (Song s : templist) {
+                s.setPosition(dao.getSongPosition(s.getID(), selectedItem));
+            }
+        }
+            return templist;
     }
 
     public void deleteSong(Song song){

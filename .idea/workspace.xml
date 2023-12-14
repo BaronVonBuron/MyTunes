@@ -5,12 +5,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8b120f27-024c-4e96-b92a-cd8ef0508cc4" name="Changes" comment="ændringer på front end + en lille bitte css class og noget andet gøjl.">
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/dataSources/155d2d2c-dfc9-4513-b213-8665aefd1c87.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/155d2d2c-dfc9-4513-b213-8665aefd1c87.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/mytunes/JazzMediaPlayer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/mytunes/JazzMediaPlayer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/mytunes/DataAccessObject.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/mytunes/DataAccessObject.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/mytunes/Logic.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/mytunes/Logic.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/mytunes/MyTunesController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/mytunes/MyTunesController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/mytunes/MyTunes.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/mytunes/MyTunes.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/mytunes/Playlist.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/mytunes/Playlist.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/mytunes/Song.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/mytunes/Song.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -94,7 +97,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "AndersTirsdagAften2",
+    "git-widget-placeholder": "AndersTorsdag",
     "ignore.virus.scanning.warn.message": "true",
     "jdk.selected.JAVA_MODULE": "openjdk-21",
     "last_opened_file_path": "C:/Users/damer/Documents/GitHub/MyTunes/src/main/mssql-jdbc-12.4.2.jre11.jar",
@@ -106,7 +109,7 @@
     "project.structure.last.edited": "Modules",
     "project.structure.proportion": "0.18554688",
     "project.structure.side.proportion": "0.5827586",
-    "settings.editor.selected.configurable": "reference.settings.project.maven.repository.indices",
+    "settings.editor.selected.configurable": "preferences.lookFeel",
     "vue.rearranger.settings.migration": "true"
   },
   "keyToStringList": {
@@ -150,6 +153,7 @@
       <workItem from="1702281591452" duration="3181000" />
       <workItem from="1702398940734" duration="6295000" />
       <workItem from="1702416872339" duration="6081000" />
+      <workItem from="1702541379927" duration="9429000" />
     </task>
     <task id="LOCAL-00001" summary="Created DB and made some functions to save/load stuff from DB - everything untested.">
       <option name="closed" value="true" />

@@ -17,6 +17,8 @@ import javafx.scene.shape.Circle;
 import javafx.scene.text.Font;
 import javafx.util.Duration;
 
+import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 
@@ -97,7 +99,8 @@ public class MyTunesController {
     public void updateSongsInPlaylist(Playlist playlist){
         this.songsInPlaylist = logic.returnSongsInPlaylist(playlist);
         ObservableList observableSongsInPlaylist = FXCollections.observableList(songsInPlaylist);
-        SongsInPlaylist.setItems(observableSongsInPlaylist);
+        SongsInPlaylist.setItems(observableSongsInPlaylist.sorted());
+        //Husk at det bliver lort når der er mere end 10.
     }
 
     @FXML
@@ -162,11 +165,7 @@ public class MyTunesController {
     }
     @FXML
     public void listviewDownButtonPressed(ActionEvent event) {
-        //det er jo helt fucked det her
-        /*if (SongsInPlaylist.getSelectionModel().getSelectedItem() != null){
-            logic.moveSongDownInPlaylist((Song) SongsInPlaylist.getSelectionModel().getSelectedItem(), tempPL);
-            updateTables();
-        }*/
+
     }
     @FXML
     public void listviewUpButtonPressed(ActionEvent event) {
