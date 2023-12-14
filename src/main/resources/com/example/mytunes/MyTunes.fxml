@@ -60,7 +60,7 @@
             <Image url="@søge.png" />
          </image>
       </ImageView>
-      <TextField fx:id="searchFIeld" layoutX="783.0" layoutY="11.0" onAction="#searchFieldAction" />
+      <TextField fx:id="searchField" layoutX="783.0" layoutY="11.0" onAction="#searchFieldAction" />
       <ImageView fx:id="logo" fitHeight="69.0" fitWidth="71.0" layoutX="32.0" layoutY="25.0" onMouseClicked="#logoPressed" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@logo.png" />
