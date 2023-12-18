@@ -59,7 +59,8 @@ public class DataAccessObject {
                 String filename = rs.getString("filename");
                 int ID = rs.getInt("ID");
                 int position = rs.getInt("position");
-                songs.add(new Song(title, artist, genre, ID, filename, position));
+                int duration = rs.getInt("duration");
+                songs.add(new Song(title, artist, genre, ID, filename, position, duration));
             }
             System.out.println("Statement: "+s+" Has been executed.");
         } catch (SQLException e) {
@@ -89,7 +90,8 @@ public class DataAccessObject {
                     String filename = rs1.getString("filename");
                     int ID = rs1.getInt("ID");
                     int position = rs1.getInt("position");
-                    songsinPL.add(new Song(title, artist, genre, ID, filename, position));
+                    int duration = rs1.getInt("duration");
+                    songsinPL.add(new Song(title, artist, genre, ID, filename, position, duration));
                 }
             }
             System.out.println("Statement: "+s+" Has been executed.");
@@ -99,8 +101,8 @@ public class DataAccessObject {
         return songsinPL;
     } //load alle sange i en valgt playliste fra db indtil der ikke er flere
 
-    public void saveSong(String songTitle, String songArtist, String songGenre, String filename){//Få duration med. VIGTIGT
-        String s = "INSERT INTO Song (title, artist, genre, filename) VALUES ('"+songTitle+"', '"+songArtist+"', '"+songGenre+"', '"+filename+"')";
+    public void saveSong(String songTitle, String songArtist, String songGenre, int duration, String filename){
+        String s = "INSERT INTO Song (title, artist, genre, duration, filename) VALUES ('"+songTitle+"', '"+songArtist+"', '"+songGenre+"', '"+duration+"', '"+filename+"')";
         updateSomething(s);
     } //Specifikt script til at tilføje sang
 

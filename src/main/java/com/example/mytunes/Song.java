@@ -15,7 +15,7 @@ public class Song {
     private Duration duration;
     private int position;
 
-    public Song(String title, String artist, String genre, int ID, String filename, int position) {
+    public Song(String title, String artist, String genre, int ID, String filename, int position, int durationInSeconds) {
         this.ID = ID;
         this.title = title;
         this.artist = artist;
@@ -24,6 +24,7 @@ public class Song {
         this.position = position;
         setFile(filename);
         setMedia();
+        this.duration = Duration.seconds(durationInSeconds);
     }
 
     public void setPosition(int position) {
@@ -39,7 +40,6 @@ public class Song {
             try {
                 this.media = new Media(this.file.toURI().toString());
                 System.out.println("Media for song: " + this.ID + " - " + this.media.toString());
-                updateDuration();
             } catch (Exception e) {
                 System.out.println("Error creating Media object for song with ID: " + getID());
                 e.printStackTrace();  // Handle the exception according to your needs
@@ -58,29 +58,6 @@ public class Song {
         }
     }
 
-    public void updateDuration() {
-        if (this.media != null) {
-            MediaPlayer mp = new MediaPlayer(this.media);
-
-            // Add a listener to get the duration when the media is ready
-            mp.setOnReady(() -> {
-                this.duration = mp.getMedia().getDuration();
-                System.out.println("Updated duration for song: " + this.ID + " - " + this.duration.toMinutes());
-                mp.dispose(); // Dispose of the MediaPlayer to release resources
-            });
-
-            // Handle any errors that may occur during media loading
-            mp.setOnError(() -> {
-                System.out.println("Error loading media for song: " + this.ID);
-                mp.dispose();
-            });
-
-            // Start loading the media asynchronously
-            mp.setAutoPlay(false);
-            mp.setCycleCount(1);
-            mp.play();
-        }
-    }
 
     public Duration getDuration() {
         return this.duration;

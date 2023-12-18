@@ -27,9 +27,10 @@ public class Logic {
         }
     }
 
-    public void saveSong(String title, String author, String genre, String filename){//tilføj duration
+    public void saveSong(String title, String author, String genre, int duration, String filename){
         if (!title.isEmpty() && !author.isEmpty()) {
-            dao.saveSong(title, author, genre, filename);//tilføj duration
+
+            dao.saveSong(title, author, genre, duration,  filename);
             this.songs = dao.returnAllSongs();
         }
     }
@@ -99,6 +100,7 @@ public class Logic {
             String title = dialogWindow.getInputTitle();
             String artist = dialogWindow.getInputAuthor();
             String genre = dialogWindow.getInputGenre();
+            int duration = dialogWindow.getSongDuration();
 
             if (title == null) {
                 title = "";
@@ -111,7 +113,7 @@ public class Logic {
             }
 
 
-            saveSong(title, artist, genre, selectedFilePath);//tilføj duration
+            saveSong(title, artist, genre, duration, selectedFilePath);//tilføj duration
         }
     }
 

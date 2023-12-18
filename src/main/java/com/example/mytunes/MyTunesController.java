@@ -59,7 +59,7 @@ public class MyTunesController {
     @FXML
     private TableColumn<Song, String> Category = new TableColumn<>();
     @FXML
-    private TableColumn<Song, String> Time = new TableColumn<>();
+    private TableColumn<Song, Duration> Time = new TableColumn<>();
 
     @FXML
     private TableView AllPlaylists = new TableView<>();
@@ -68,7 +68,7 @@ public class MyTunesController {
     @FXML
     private TableColumn<Playlist, Integer> numberOfSongsInPlaylist = new TableColumn<>();
     @FXML
-    private TableColumn<Playlist, Integer> playlistDuration = new TableColumn<>();
+    private TableColumn<Playlist, Duration> playlistDuration = new TableColumn<>();
 
     public void initialize() {
         System.out.println("Controller initialized");//Den er her for at vise at controlleren bliver startet ordentligt.
@@ -86,7 +86,7 @@ public class MyTunesController {
 
     }
 
-    public void updateTables(){
+    public void updateTables() {
         this.allSongs = FXCollections.observableList(logic.getSongs());
         this.allPlaylists = FXCollections.observableList(logic.getPlaylists());
 
@@ -97,19 +97,35 @@ public class MyTunesController {
         Artist.setCellValueFactory(new PropertyValueFactory<>("artist"));
         Category.setCellValueFactory(new PropertyValueFactory<>("genre"));
         Time.setCellValueFactory(new PropertyValueFactory<>("duration"));
-
+        Time.setCellFactory(column -> new TimeTableCell<>());
 
         Name.setCellValueFactory(new PropertyValueFactory<>("name"));
         numberOfSongsInPlaylist.setCellValueFactory(new PropertyValueFactory<>("numberOfSongs"));
         playlistDuration.setCellValueFactory(new PropertyValueFactory<>("duration"));
-
-
+        playlistDuration.setCellFactory(column -> new TimeTableCell<>());
 
         AllSongs.refresh();
         AllSongs.getSortOrder().add(Title);
         AllPlaylists.refresh();
         AllPlaylists.getSortOrder().add(Name);
         SongsInPlaylist.refresh();
+
+        // Calculate and set playlist duration
+        for (Playlist playlist : logic.getPlaylists()) {
+            Duration totalDuration = calculatePlaylistDuration(playlist);
+            playlist.setDuration(totalDuration);
+        }
+    }
+
+    private Duration calculatePlaylistDuration(Playlist playlist) {
+        List<Song> songs = logic.returnSongsInPlaylist(playlist);
+        Duration totalDuration = Duration.ZERO;
+
+        for (Song song : songs) {
+            totalDuration = totalDuration.add(song.getDuration());
+        }
+
+        return totalDuration;
     }
 
     public void updateSongsInPlaylist(Playlist playlist){
@@ -120,8 +136,9 @@ public class MyTunesController {
         playlistPosition.setCellValueFactory(new PropertyValueFactory<>("position"));
         playlistTitle.setCellValueFactory(new PropertyValueFactory<>("title"));
         playlistSongDuration.setCellValueFactory(new PropertyValueFactory<>("duration"));
+        playlistSongDuration.setCellFactory(column -> new TimeTableCell<>());
+
         SongsInPlaylist.getSortOrder().add(playlistPosition);
-        //Husk at det bliver lort når der er mere end 10.
     }
 
     @FXML
