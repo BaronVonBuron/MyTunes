@@ -37,7 +37,7 @@ public class MyTunesController {
     private List<PathTransition> pathTransitions = new ArrayList<>();
 
     @FXML
-    private ListView SongsInPlaylist;
+    private TableView SongsInPlaylist;
     private Playlist tempPL;
     @FXML
     private ImageView searchButton;
@@ -242,22 +242,15 @@ public class MyTunesController {
             String searchText = searchField.getText().toLowerCase();
 
             List<Song> searchResults = new ArrayList<>();
-            //søger efter title
+
             for (Song song : logic.getSongs()) {
-                if (song.getTitle().toLowerCase().contains(searchText)){
-                    searchResults.add(song);
-                }
-            }
-            //søger efter artist
-            for (Song song : logic.getSongs()) {
-                if (song.getArtist().toLowerCase().contains(searchText)){
-                    searchResults.add(song);
-                }
-            }
-            //søger efter genre
-            for (Song song : logic.getSongs()) {
-                if (song.getGenre().toLowerCase().contains(searchText)){
-                    searchResults.add(song);
+                if (song.getArtist().toLowerCase().contains(searchText)||
+                    song.getTitle().toLowerCase().contains(searchText) ||
+                    song.getGenre().toLowerCase().contains(searchText)) {
+
+                    if (!searchResults.contains(song)) {
+                        searchResults.add(song);
+                    }
                 }
             }
 
