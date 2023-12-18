@@ -7,7 +7,6 @@ import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaPlayer.Status;
 import javafx.util.Duration;
 
-import java.io.File;
 import java.util.List;
 
 public class JazzMediaPlayer {
@@ -22,13 +21,12 @@ public class JazzMediaPlayer {
     private MyTunesController controller;
 
 
-    public JazzMediaPlayer(Song song, Slider playTimeSlider, List<Song> allSongs, Label timeLeftLabel, Label timePlayedLabel, MyTunesController controller) {
-        String uriString = song.getFile().toURI().toString();
-        this.song = song;
-        media = new Media(uriString);
+    public JazzMediaPlayer(Slider playTimeSlider, List<Song> allSongs, Label timeLeftLabel, Label timePlayedLabel, MyTunesController controller) {
         this.playTimeSlider = playTimeSlider;
-        newMediaPlayer();
         this.allSongs = allSongs;
+        this.song = allSongs.getFirst();
+        this.media = new Media(song.getFile().toURI().toString());
+        newMediaPlayer();
         this.timeLeftLabel = timeLeftLabel;
         this.timePlayedLabel = timePlayedLabel;
         this.controller = controller;
@@ -38,6 +36,7 @@ public class JazzMediaPlayer {
         if (mediaPlayer != null){
             mediaPlayer.dispose();
         }
+
 
         mediaPlayer = new MediaPlayer(this.media);
         mediaPlayer.setOnStalled(() -> {
@@ -70,7 +69,6 @@ public class JazzMediaPlayer {
             controller.currentSongPlaying();
 
         });
-
     }
 
     public MediaPlayer getMediaPlayer() {
@@ -105,13 +103,13 @@ public class JazzMediaPlayer {
     public void volumeIncrementDown() {
         if (mediaPlayer.getVolume() > 0.10){
             mediaPlayer.setVolume(mediaPlayer.getVolume() - 0.10);
-        }
+        } else mediaPlayer.setVolume(0);
     }
 
     public void volumeIncrementUp() {
         if (mediaPlayer.getVolume() < 0.90){
             mediaPlayer.setVolume(mediaPlayer.getVolume() + 0.10);
-        }
+        } else mediaPlayer.setVolume(1.0);
     }
 
     public void mute() {
@@ -140,6 +138,7 @@ public class JazzMediaPlayer {
 
             setMedia(previousSong);
             mediaPlayer.play();
+            mediaPlayer.setVolume(controller.getVolumeSlider().getValue());
             this.song = previousSong;
         }
     }
@@ -152,12 +151,14 @@ public class JazzMediaPlayer {
                 Song nextSong = allSongs.get(0);
                 setMedia(nextSong);
                 mediaPlayer.play();
+                mediaPlayer.setVolume(controller.getVolumeSlider().getValue());
                 this.song = nextSong;
             } else {
                 // skifter til næste sang i listen
                 Song nextSong = allSongs.get(currentIndex + 1);
                 setMedia(nextSong);
                 mediaPlayer.play();
+                mediaPlayer.setVolume(controller.getVolumeSlider().getValue());
                 this.song = nextSong;
             }
         }

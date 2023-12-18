@@ -27,7 +27,39 @@ public class DataAccessObject {
         } catch (SQLException e) {
             System.out.println("Can't do requested statement: "+s+ " Code: "+ e.getErrorCode()+" Because: " + e.getMessage());
         }
-    } //script til at opdatere i db hver gang det skal bruges, så det ikke skrives igen
+    }
+    //script til at opdatere i db hver gang det skal bruges, så det ikke skrives igen
+
+
+    public void doSomething(String[] statements){
+        try {
+            con.setAutoCommit(false); // Start transaction
+            Statement database = con.createStatement();
+
+            for (String s : statements) {
+                database.executeUpdate(s);
+                System.out.println("Statement: " + s + " has been executed.");
+            }
+
+            con.commit(); // Commit transaction
+            System.out.println("Transaction committed successfully.");
+        } catch (SQLException e) {
+            try {
+                con.rollback(); // Rollback in case of an error
+                System.out.println("Transaction is being rolled back.");
+            } catch (SQLException excep) {
+                System.out.println("Error during transaction rollback: " + excep.getMessage());
+            }
+            System.out.println("Can't do requested statements. Code: " + e.getErrorCode() + " Because: " + e.getMessage());
+        } finally {
+            try {
+                con.setAutoCommit(true); // Reset to default behavior
+            } catch (SQLException ex) {
+                System.out.println("Error resetting auto-commit: " + ex.getMessage());
+            }
+        }
+    }
+
 
     public List<Playlist> returnAllPlaylists(){
         List<Playlist> playlists = new ArrayList<>();
@@ -164,5 +196,27 @@ public class DataAccessObject {
             throw new RuntimeException(e);
         }
         return pos;
+    }
+
+    public void moveSongInPlaylistDown(int id, int position, String name) {
+        String[] statements = new String[3];
+        // Temporarily move the selected song out of the way (e.g., to position -1)
+        statements[0] = "UPDATE PlaylistSong SET position = -1 WHERE song_id = " + id + " AND playlist_name = '" + name + "'";
+        // Move the song currently in the next position up
+        statements[1] = "UPDATE PlaylistSong SET position = " + position + " WHERE position = " + (position + 1) + " AND playlist_name = '" + name + "'";
+        // Move the selected song to the next position
+        statements[2] = "UPDATE PlaylistSong SET position = " + (position + 1) + " WHERE song_id = " + id + " AND playlist_name = '" + name + "'";
+        doSomething(statements);
+    }
+
+    public void moveSongInPlaylistUp(int id, int position, String name) {
+        String[] statements = new String[3];
+        // Temporarily move the selected song out of the way (e.g., to position -1)
+        statements[0] = "UPDATE PlaylistSong SET position = -1 WHERE song_id = " + id + " AND playlist_name = '" + name + "'";
+        // Move the song currently in the previous position down
+        statements[1] = "UPDATE PlaylistSong SET position = " + position + " WHERE position = " + (position - 1) + " AND playlist_name = '" + name + "'";
+        // Move the selected song to the previous position
+        statements[2] = "UPDATE PlaylistSong SET position = " + (position - 1) + " WHERE song_id = " + id + " AND playlist_name = '" + name + "'";
+        doSomething(statements);
     }
 }

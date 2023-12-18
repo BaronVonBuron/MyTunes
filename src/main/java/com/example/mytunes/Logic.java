@@ -185,13 +185,11 @@ public class Logic {
         tempPL.setNumberOfSongs();
     }
 
-    public void moveSongDownInPlaylist(Song song, Playlist playlist) {
-        if (playlist.getSongs().size() > 1 && playlist.getSongs().getLast() != song){
-            int currentIndex = playlist.getSongs().indexOf(song);
-            int newIndex = playlist.getSongs().indexOf(song) + 1;
-            System.out.println("current index: "+currentIndex+" new index: "+newIndex);
-            //Collections.swap(playlist.getSongs(), currentIndex, newIndex);
-        }
+    public void moveSongDownInPlaylist(Song s, Playlist pl) {
+        dao.moveSongInPlaylistDown(s.getID(), s.getPosition(), pl.getName());
     }
 
+    public void moveSongUpInPlaylist(Song s, Playlist pl) {
+        dao.moveSongInPlaylistUp(s.getID(), s.getPosition(), pl.getName());
+    }
 }

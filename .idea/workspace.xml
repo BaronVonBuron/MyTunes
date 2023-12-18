@@ -5,17 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8b120f27-024c-4e96-b92a-cd8ef0508cc4" name="Changes" comment="ændringer på front end + en lille bitte css class og noget andet gøjl.">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/mytunes/TimeTableCell.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/155d2d2c-dfc9-4513-b213-8665aefd1c87.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/155d2d2c-dfc9-4513-b213-8665aefd1c87.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/mytunes/DataAccessObject.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/mytunes/DataAccessObject.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/mytunes/DialogWindow.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/mytunes/DialogWindow.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/mytunes/JazzMediaPlayer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/mytunes/JazzMediaPlayer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/mytunes/Logic.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/mytunes/Logic.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/mytunes/MyTunesController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/mytunes/MyTunesController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/mytunes/Playlist.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/mytunes/Playlist.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/mytunes/Song.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/mytunes/Song.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/mytunes/MyTunes.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/mytunes/MyTunes.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -89,38 +84,38 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
-    &quot;Downloaded.Files.Path.Enabled&quot;: &quot;true&quot;,
-    &quot;Repository.Attach.Annotations&quot;: &quot;false&quot;,
-    &quot;Repository.Attach.JavaDocs&quot;: &quot;false&quot;,
-    &quot;Repository.Attach.Sources&quot;: &quot;false&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;AndersMandag&quot;,
-    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;jdk.selected.JAVA_MODULE&quot;: &quot;openjdk-21&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/damer/Documents/GitHub/MyTunes/src/main/mssql-jdbc-12.4.2.jre11.jar&quot;,
-    &quot;list.type.of.created.stylesheet&quot;: &quot;CSS&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.18554688&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.5827586&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.lookFeel&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_ADD_EXTERNAL_FILES": "true",
+    "Downloaded.Files.Path.Enabled": "true",
+    "Repository.Attach.Annotations": "false",
+    "Repository.Attach.JavaDocs": "false",
+    "Repository.Attach.Sources": "false",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "git-widget-placeholder": "AndersMandagAften",
+    "ignore.virus.scanning.warn.message": "true",
+    "jdk.selected.JAVA_MODULE": "openjdk-21",
+    "last_opened_file_path": "C:/Users/damer/Documents/GitHub/MyTunes/src/main/mssql-jdbc-12.4.2.jre11.jar",
+    "list.type.of.created.stylesheet": "CSS",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.18554688",
+    "project.structure.side.proportion": "0.5827586",
+    "settings.editor.selected.configurable": "preferences.lookFeel",
+    "vue.rearranger.settings.migration": "true"
   },
-  &quot;keyToStringList&quot;: {
-    &quot;DatabaseDriversLRU&quot;: [
-      &quot;sqlserver&quot;
+  "keyToStringList": {
+    "DatabaseDriversLRU": [
+      "sqlserver"
     ]
   }
-}</component>
+}]]></component>
   <component name="RunManager">
     <configuration name="MyTunes" type="Application" factoryName="Application">
       <option name="MAIN_CLASS_NAME" value="com.example.mytunes.MyTunesApplication" />
@@ -161,6 +156,7 @@
       <workItem from="1702686451330" duration="44000" />
       <workItem from="1702887524318" duration="7006000" />
       <workItem from="1702922891165" duration="5513000" />
+      <workItem from="1702929134185" duration="4314000" />
     </task>
     <task id="LOCAL-00001" summary="Created DB and made some functions to save/load stuff from DB - everything untested.">
       <option name="closed" value="true" />

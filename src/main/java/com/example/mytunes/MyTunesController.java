@@ -19,7 +19,6 @@ import javafx.scene.text.Font;
 import javafx.util.Duration;
 import javafx.scene.control.TextField;
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 
 
@@ -46,8 +45,6 @@ public class MyTunesController {
     private ImageView searchButton;
     private final Logic logic = new Logic();
     private JazzMediaPlayer jmp;
-    @FXML
-    private TableView SongsInPlaylist;
     @FXML
     TableColumn<Song, Integer> playlistPosition = new TableColumn<>();
     @FXML
@@ -82,7 +79,7 @@ public class MyTunesController {
             tempPL = (Playlist) allPlaylists.getFirst();
         }
 
-        jmp = new JazzMediaPlayer(logic.getSongs().getFirst(), playTimeSlider, logic.getSongs(), timeLeftLabel, timePlayedLabel, this);
+        jmp = new JazzMediaPlayer(playTimeSlider, logic.getSongs(), timeLeftLabel, timePlayedLabel, this);
 
         volumeSlider.setValue(0.25);
         volumeSlider.valueProperty().addListener((observable, oldValue, newValue) -> {
@@ -133,6 +130,10 @@ public class MyTunesController {
         return totalDuration;
     }
 
+    public Slider getVolumeSlider() {
+        return volumeSlider;
+    }
+
     public void updateSongsInPlaylist(Playlist playlist){
         this.songsInPlaylist = logic.returnSongsInPlaylist(playlist);
         ObservableList observableSongsInPlaylist = FXCollections.observableList(songsInPlaylist);
@@ -148,8 +149,8 @@ public class MyTunesController {
 
     @FXML
     public void playButtonPressed(MouseEvent mouseEvent) {
-        jmp.setVolume(volumeSlider.getValue());
         jmp.play();
+        jmp.setVolume(volumeSlider.getValue());
         System.out.println("playbutton pressed");
     }
     @FXML
@@ -180,6 +181,7 @@ public class MyTunesController {
     public void backwardsButtonPressed(MouseEvent mouseEvent) {
         if (playTimeSlider.getValue() < 5){
             jmp.playPreviousSong();
+            currentSongPlaying();
             System.out.println("Spiller tidligere sang");
         } else {
             playTimeSlider.setValue(0);
@@ -208,13 +210,27 @@ public class MyTunesController {
         }else System.out.println("No playlist selected");
     }
     @FXML
-    public void listviewDownButtonPressed(ActionEvent event) {
-
+    public void songInPlaylistDownButtonPressed(ActionEvent event) {
+        if (SongsInPlaylist.getSelectionModel().getSelectedItem() != null) {
+            Song s = (Song) SongsInPlaylist.getSelectionModel().getSelectedItem();
+            if (songsInPlaylist.getLast() != s){
+                logic.moveSongDownInPlaylist(s, tempPL);
+                updateSongsInPlaylist(tempPL);
+            }
+        }
     }
     @FXML
-    public void listviewUpButtonPressed(ActionEvent event) {
-
+    public void songInPlaylistUpButtonPressed(ActionEvent event) {
+        if (SongsInPlaylist.getSelectionModel().getSelectedItem() != null) {
+            Song s = (Song) SongsInPlaylist.getSelectionModel().getSelectedItem();
+            if (songsInPlaylist.getFirst() != s){
+                logic.moveSongUpInPlaylist(s, tempPL);
+                updateSongsInPlaylist(tempPL);
+            }
+        }
     }
+
+
     @FXML
     public void deleteSongLWButtonPressed(ActionEvent event) {
         if (SongsInPlaylist.getSelectionModel().getSelectedItem() != null){
