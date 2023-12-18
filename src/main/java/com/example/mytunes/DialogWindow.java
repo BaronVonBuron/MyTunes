@@ -3,6 +3,8 @@ package com.example.mytunes;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.stage.Window;
@@ -18,6 +20,7 @@ public class DialogWindow {
     private String inputGenre;
     private String media_uri;
     private boolean deleteOK;
+    private int duration;
 
     // Constructor for deleting song/playlist
     public DialogWindow(boolean isPlaylist, boolean isDelete){
@@ -102,9 +105,22 @@ public class DialogWindow {
             File selectedFile = fileChooser.showOpenDialog(stage);
             if (selectedFile != null) {
                 fileField.setText(selectedFile.getName());
-                // If the user is adding a new song, auto-fill the title
+                // If the user is adding a new song, auto-fill the title, and get the duration.
                 if (defaultTitle.isEmpty()) {
                     titleField.setText(selectedFile.getName());
+                    Media media = new Media(selectedFile.toURI().toString());
+                    MediaPlayer mp = new MediaPlayer(media);
+                    mp.setOnReady(() -> {
+                        this.duration = (int) mp.getMedia().getDuration().toSeconds();
+                        System.out.println("Duration for song: "+this.duration);
+                        mp.dispose(); // Dispose of the MediaPlayer to release resources
+                    });
+
+                    // Handle any errors that may occur during media loading
+                    mp.setOnError(() -> {
+                        System.out.println("Error loading media for song");
+                        mp.dispose();
+                    });
                 }
             }
         });
@@ -146,37 +162,6 @@ public class DialogWindow {
         stage.showAndWait();
     }
 
-
-
-    /*private void addSongWithFileChooser(String title, Window mainWindow) {
-        FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle(title);
-        //Nedenstående 9 linier er til for at få filechooseren til at gå ind i projektets hovedmappe.
-        String resourceUrl = System.getProperty("user.dir");
-        if (resourceUrl != null) {
-            try {
-                File resourceDir = new File(resourceUrl);
-                fileChooser.setInitialDirectory(resourceDir);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        } else System.out.println("Couldn't find the URL of the Applications folder.");
-
-        fileChooser.getExtensionFilters().addAll(
-                new FileChooser.ExtensionFilter("Audio Files", "*.mp3", "*.wav"),
-                new FileChooser.ExtensionFilter("All Files", "*.*")
-        );
-
-        Stage stage = (Stage) mainWindow;
-
-        File selectedFile = fileChooser.showOpenDialog(stage);
-
-        if (selectedFile != null) {
-            inputTitle = selectedFile.getName();
-        } else {
-            System.out.println("No file selected");
-        }
-    }*/
 
 
     private void showPlaylistDialog(String title, String header, String content) {
@@ -273,5 +258,9 @@ public class DialogWindow {
 
     public boolean isDeleteOK() {
         return deleteOK;
+    }
+
+    public int getSongDuration() {
+        return duration;
     }
 }

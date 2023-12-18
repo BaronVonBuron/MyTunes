@@ -15,7 +15,7 @@ public class Song {
     private Duration duration;
     private int position;
 
-    public Song(String title, String artist, String genre, int ID, String filename, int position) {
+    public Song(String title, String artist, String genre, int ID, String filename, int position, int durationInSeconds) {
         this.ID = ID;
         this.title = title;
         this.artist = artist;
@@ -24,6 +24,7 @@ public class Song {
         this.position = position;
         setFile(filename);
         setMedia();
+        this.duration = Duration.seconds(durationInSeconds);
     }
 
     public void setPosition(int position) {
@@ -39,7 +40,6 @@ public class Song {
             try {
                 this.media = new Media(this.file.toURI().toString());
                 System.out.println("Media for song: " + this.ID + " - " + this.media.toString());
-                updateDuration();
             } catch (Exception e) {
                 System.out.println("Error creating Media object for song with ID: " + getID());
                 e.printStackTrace();  // Handle the exception according to your needs
@@ -58,18 +58,8 @@ public class Song {
         }
     }
 
-    // Update duration when needed
-    public void updateDuration() {
-        if (this.media != null) {
-            this.duration = this.media.getDuration();
-            System.out.println("Updated duration for song: " + this.ID + " - " + this.duration);
-        }
-    }
 
     public Duration getDuration() {
-        if (this.duration == null) {
-            updateDuration();
-        }
         return this.duration;
     }
 
@@ -108,6 +98,11 @@ public class Song {
 
     @Override
     public String toString() {
-        return position + " - " + title + " - " + artist + " - " + (int) duration.toSeconds();
+        Duration songDuration = getDuration();
+        if (songDuration != null) {
+            return position + " - " + title + " - " + artist + " - " + (int) songDuration.toSeconds();
+        } else {
+            return position + " - " + title + " - " + artist + " - Unknown Duration";
+        }
     }
 }

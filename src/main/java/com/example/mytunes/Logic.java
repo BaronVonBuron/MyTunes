@@ -7,6 +7,7 @@ package com.example.mytunes;
 //Når der trykkes på en knap i programmet, så sender controlleren besked videre til denne klasse - så controller ikke har adgang til DB uden at gå igennem denne.
 
 import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.util.Duration;
 import java.io.File;
 import java.util.Collections;
@@ -28,7 +29,8 @@ public class Logic {
 
     public void saveSong(String title, String author, String genre, int duration, String filename){
         if (!title.isEmpty() && !author.isEmpty()) {
-            dao.saveSong(title, author, genre, duration, filename);
+
+            dao.saveSong(title, author, genre, duration,  filename);
             this.songs = dao.returnAllSongs();
         }
     }
@@ -84,16 +86,6 @@ public class Logic {
         }
     }
 
-    private Duration getMediaDuration(String filePath) {
-        try {
-            // Use a Media object to get the duration
-            Media media = new Media(new File(filePath).toURI().toString());
-            return media.getDuration();
-        } catch (Exception e) {
-            e.printStackTrace();
-            return Duration.UNKNOWN; // or handle the exception as needed
-        }
-    }
 
     public void createSong() {
         DialogWindow dialogWindow = new DialogWindow(false, "", "", "", "");
@@ -102,13 +94,13 @@ public class Logic {
 
 
         if (selectedFilePath != null && !selectedFilePath.isEmpty()) {
-            // Get the duration of the selected media file
-            Duration mediaDuration = getMediaDuration(selectedFilePath);
-
-
+            //tilføj en mediaplayer, så man kan få duration fre denne.
+            //når mediaplayer er ready, så få duration, og send den videre til savesong.
+            //Dette er det ENESTE tidspunkt, der må ordnes duration.
             String title = dialogWindow.getInputTitle();
             String artist = dialogWindow.getInputAuthor();
             String genre = dialogWindow.getInputGenre();
+            int duration = dialogWindow.getSongDuration();
 
             if (title == null) {
                 title = "";
@@ -120,8 +112,8 @@ public class Logic {
                 genre = "";
             }
 
-            // Pass the actual duration to the saveSong method
-            saveSong(title, artist, genre, (int) mediaDuration.toSeconds(), selectedFilePath);
+
+            saveSong(title, artist, genre, duration, selectedFilePath);//tilføj duration
         }
     }
 

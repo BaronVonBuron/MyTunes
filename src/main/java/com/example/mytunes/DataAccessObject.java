@@ -46,7 +46,7 @@ public class DataAccessObject {
         return playlists;
     } //load playlisterne fra db indtil der ikke er flere
 
-    public List<Song> returnAllSongs(){
+    public List<Song> returnAllSongs(){//tilføj et kald til duration.
         List<Song> songs = new ArrayList<>();
         String s = "SELECT * FROM Song";
         try {
@@ -59,7 +59,8 @@ public class DataAccessObject {
                 String filename = rs.getString("filename");
                 int ID = rs.getInt("ID");
                 int position = rs.getInt("position");
-                songs.add(new Song(title, artist, genre, ID, filename, position));
+                int duration = rs.getInt("duration");
+                songs.add(new Song(title, artist, genre, ID, filename, position, duration));
             }
             System.out.println("Statement: "+s+" Has been executed.");
         } catch (SQLException e) {
@@ -68,7 +69,7 @@ public class DataAccessObject {
         return songs;
     } //load sangene fra db indtil der ikke er flere
 
-    public List<Song> returnSongsInPlaylist(Playlist pl){
+    public List<Song> returnSongsInPlaylist(Playlist pl){//nøjes med at returnere ID'er på sange, og så håndter det på objekt niveau, istedet for db.
         List<Song> songsinPL = new ArrayList<>();
         List<Integer> songIDs = new ArrayList<>();
         String s = "SELECT * FROM PlaylistSong WHERE playlist_name = '"+ pl.getName() +"'";
@@ -89,7 +90,8 @@ public class DataAccessObject {
                     String filename = rs1.getString("filename");
                     int ID = rs1.getInt("ID");
                     int position = rs1.getInt("position");
-                    songsinPL.add(new Song(title, artist, genre, ID, filename, position));
+                    int duration = rs1.getInt("duration");
+                    songsinPL.add(new Song(title, artist, genre, ID, filename, position, duration));
                 }
             }
             System.out.println("Statement: "+s+" Has been executed.");
