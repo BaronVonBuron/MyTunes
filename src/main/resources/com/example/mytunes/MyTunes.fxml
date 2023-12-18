@@ -106,9 +106,9 @@
       <Label fx:id="timePlayedLabel" layoutX="314.0" layoutY="481.0" text="Mojn" />
       <TableView fx:id="SongsInPlaylist" layoutX="328.0" onMouseClicked="#songFromPlaylistClicked" prefHeight="200.0" prefWidth="236.0">
         <columns>
-          <TableColumn fx:id="playlistPostion" prefWidth="56.0" text="Position" />
-          <TableColumn fx:id="playListTitel" prefWidth="123.20001220703125" text="Titel" />
-            <TableColumn fx:id="playListDuration" prefWidth="56.0" text="Duration" />
+          <TableColumn fx:id="playlistPosition" prefWidth="56.0" text="Position" />
+          <TableColumn fx:id="playlistTitle" prefWidth="123.20001220703125" text="Titel" />
+            <TableColumn fx:id="playlistSongDuration" prefWidth="56.0" text="Duration" />
         </columns>
       </TableView>
    </children>

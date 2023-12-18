@@ -58,18 +58,31 @@ public class Song {
         }
     }
 
-    // Update duration when needed
     public void updateDuration() {
         if (this.media != null) {
-            this.duration = this.media.getDuration();
-            System.out.println("Updated duration for song: " + this.ID + " - " + this.duration);
+            MediaPlayer mp = new MediaPlayer(this.media);
+
+            // Add a listener to get the duration when the media is ready
+            mp.setOnReady(() -> {
+                this.duration = mp.getMedia().getDuration();
+                System.out.println("Updated duration for song: " + this.ID + " - " + this.duration.toMinutes());
+                mp.dispose(); // Dispose of the MediaPlayer to release resources
+            });
+
+            // Handle any errors that may occur during media loading
+            mp.setOnError(() -> {
+                System.out.println("Error loading media for song: " + this.ID);
+                mp.dispose();
+            });
+
+            // Start loading the media asynchronously
+            mp.setAutoPlay(false);
+            mp.setCycleCount(1);
+            mp.play();
         }
     }
 
     public Duration getDuration() {
-        if (this.duration == null) {
-            updateDuration();
-        }
         return this.duration;
     }
 
@@ -108,6 +121,11 @@ public class Song {
 
     @Override
     public String toString() {
-        return position + " - " + title + " - " + artist + " - " + (int) duration.toSeconds();
+        Duration songDuration = getDuration();
+        if (songDuration != null) {
+            return position + " - " + title + " - " + artist + " - " + (int) songDuration.toSeconds();
+        } else {
+            return position + " - " + title + " - " + artist + " - Unknown Duration";
+        }
     }
 }

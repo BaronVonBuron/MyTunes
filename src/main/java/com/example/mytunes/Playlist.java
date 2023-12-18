@@ -1,6 +1,7 @@
 package com.example.mytunes;
 
 import java.io.File;
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,8 +9,8 @@ public class Playlist {
 
     private String name;
     private List<Song> songs;
-    private int duration, numberOfSongs;
-
+    private int numberOfSongs;
+    private Duration duration;
 
 
     public Playlist(String name) {
@@ -18,18 +19,20 @@ public class Playlist {
         setDuration();
     }
 
-    public int getDuration() {
+    public Duration getDuration() {
         return duration;
     }
 
     public void setDuration() {
-        int totalDuration = 0;
+        double totalDuration = 0;
         if (!this.songs.isEmpty()){
             for (Song s : this.songs) {
-                totalDuration += (int) s.getDuration().toSeconds();
+                if (s.getDuration() != null) {
+                    totalDuration += s.getDuration().toSeconds();
+                }
             }
-            this.duration = totalDuration;
-        } else this.duration = 0;
+            this.duration = Duration.ofSeconds((long) totalDuration);
+        } else this.duration = Duration.ofSeconds(0);
     }
 
 

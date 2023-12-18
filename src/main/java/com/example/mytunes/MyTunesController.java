@@ -36,13 +36,20 @@ public class MyTunesController {
     private List<Song> songsInPlaylist;
     private List<PathTransition> pathTransitions = new ArrayList<>();
 
-    @FXML
-    private TableView SongsInPlaylist;
     private Playlist tempPL;
     @FXML
     private ImageView searchButton;
     private final Logic logic = new Logic();
     private JazzMediaPlayer jmp;
+    @FXML
+    private TableView SongsInPlaylist;
+    @FXML
+    TableColumn<Song, Integer> playlistPosition = new TableColumn<>();
+    @FXML
+    TableColumn<Song, String> playlistTitle = new TableColumn<>();
+    @FXML
+    TableColumn<Song, Duration> playlistSongDuration = new TableColumn<>();
+
     @FXML
     private TableView<Song> AllSongs  = new TableView<>();
     @FXML
@@ -96,15 +103,24 @@ public class MyTunesController {
         numberOfSongsInPlaylist.setCellValueFactory(new PropertyValueFactory<>("numberOfSongs"));
         playlistDuration.setCellValueFactory(new PropertyValueFactory<>("duration"));
 
+
+
         AllSongs.refresh();
+        AllSongs.getSortOrder().add(Title);
         AllPlaylists.refresh();
+        AllPlaylists.getSortOrder().add(Name);
         SongsInPlaylist.refresh();
     }
 
     public void updateSongsInPlaylist(Playlist playlist){
         this.songsInPlaylist = logic.returnSongsInPlaylist(playlist);
         ObservableList observableSongsInPlaylist = FXCollections.observableList(songsInPlaylist);
-        SongsInPlaylist.setItems(observableSongsInPlaylist.sorted());
+        SongsInPlaylist.setItems(observableSongsInPlaylist);
+
+        playlistPosition.setCellValueFactory(new PropertyValueFactory<>("position"));
+        playlistTitle.setCellValueFactory(new PropertyValueFactory<>("title"));
+        playlistSongDuration.setCellValueFactory(new PropertyValueFactory<>("duration"));
+        SongsInPlaylist.getSortOrder().add(playlistPosition);
         //Husk at det bliver lort når der er mere end 10.
     }
 
@@ -174,6 +190,7 @@ public class MyTunesController {
     }
     @FXML
     public void listviewUpButtonPressed(ActionEvent event) {
+
     }
     @FXML
     public void deleteSongLWButtonPressed(ActionEvent event) {

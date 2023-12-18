@@ -148,37 +148,6 @@ public class DialogWindow {
 
 
 
-    /*private void addSongWithFileChooser(String title, Window mainWindow) {
-        FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle(title);
-        //Nedenstående 9 linier er til for at få filechooseren til at gå ind i projektets hovedmappe.
-        String resourceUrl = System.getProperty("user.dir");
-        if (resourceUrl != null) {
-            try {
-                File resourceDir = new File(resourceUrl);
-                fileChooser.setInitialDirectory(resourceDir);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        } else System.out.println("Couldn't find the URL of the Applications folder.");
-
-        fileChooser.getExtensionFilters().addAll(
-                new FileChooser.ExtensionFilter("Audio Files", "*.mp3", "*.wav"),
-                new FileChooser.ExtensionFilter("All Files", "*.*")
-        );
-
-        Stage stage = (Stage) mainWindow;
-
-        File selectedFile = fileChooser.showOpenDialog(stage);
-
-        if (selectedFile != null) {
-            inputTitle = selectedFile.getName();
-        } else {
-            System.out.println("No file selected");
-        }
-    }*/
-
-
     private void showPlaylistDialog(String title, String header, String content) {
         TextInputDialog dialog = new TextInputDialog();
         dialog.setTitle(title);

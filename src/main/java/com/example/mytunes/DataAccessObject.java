@@ -46,7 +46,7 @@ public class DataAccessObject {
         return playlists;
     } //load playlisterne fra db indtil der ikke er flere
 
-    public List<Song> returnAllSongs(){
+    public List<Song> returnAllSongs(){//tilføj et kald til duration.
         List<Song> songs = new ArrayList<>();
         String s = "SELECT * FROM Song";
         try {
@@ -68,7 +68,7 @@ public class DataAccessObject {
         return songs;
     } //load sangene fra db indtil der ikke er flere
 
-    public List<Song> returnSongsInPlaylist(Playlist pl){
+    public List<Song> returnSongsInPlaylist(Playlist pl){//nøjes med at returnere ID'er på sange, og så håndter det på objekt niveau, istedet for db.
         List<Song> songsinPL = new ArrayList<>();
         List<Integer> songIDs = new ArrayList<>();
         String s = "SELECT * FROM PlaylistSong WHERE playlist_name = '"+ pl.getName() +"'";
@@ -99,8 +99,8 @@ public class DataAccessObject {
         return songsinPL;
     } //load alle sange i en valgt playliste fra db indtil der ikke er flere
 
-    public void saveSong(String songTitle, String songArtist, String songGenre, int duration, String filename){
-        String s = "INSERT INTO Song (title, artist, genre, duration, filename) VALUES ('"+songTitle+"', '"+songArtist+"', '"+songGenre+"', '"+duration+"', '"+filename+"')";
+    public void saveSong(String songTitle, String songArtist, String songGenre, String filename){//Få duration med. VIGTIGT
+        String s = "INSERT INTO Song (title, artist, genre, filename) VALUES ('"+songTitle+"', '"+songArtist+"', '"+songGenre+"', '"+filename+"')";
         updateSomething(s);
     } //Specifikt script til at tilføje sang
 
