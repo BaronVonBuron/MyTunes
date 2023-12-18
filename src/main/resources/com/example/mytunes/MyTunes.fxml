@@ -35,8 +35,8 @@
       <Button fx:id="newPlaylistButton" layoutX="58.0" layoutY="171.0" mnemonicParsing="false" onAction="#newPlaylistButtonPressed" style="-fx-background-color: BROWN;" text="New" textOverrun="CENTER_ELLIPSIS" />
       <Button fx:id="editPlaylistButton" layoutX="134.0" layoutY="171.0" mnemonicParsing="false" onAction="#editPlaylistButtonPressed" style="-fx-background-color: BROWN;" text="Edit" />
       <Button fx:id="deletePlaylistButton" layoutX="200.0" layoutY="171.0" mnemonicParsing="false" onAction="#deletePlaylistButtonPressed" style="-fx-background-color: BROWN;" text="Delete" />
-      <Button fx:id="listviewUpButton" layoutX="328.0" layoutY="204.0" mnemonicParsing="false" onAction="#listviewUpButtonPressed" style="-fx-background-color: BROWN;" text="↑" />
-      <Button fx:id="listviewDownButton" layoutX="376.0" layoutY="204.0" mnemonicParsing="false" onAction="#listviewDownButtonPressed" style="-fx-background-color: BROWN;" text="↓" />
+      <Button fx:id="listviewUpButton" layoutX="328.0" layoutY="204.0" mnemonicParsing="false" onAction="#songInPlaylistUpButtonPressed" style="-fx-background-color: BROWN;" text="↑" />
+      <Button fx:id="listviewDownButton" layoutX="376.0" layoutY="204.0" mnemonicParsing="false" onAction="#songInPlaylistDownButtonPressed" style="-fx-background-color: BROWN;" text="↓" />
       <Button fx:id="deleteSongLWButton" layoutX="514.0" layoutY="204.0" mnemonicParsing="false" onAction="#deleteSongLWButtonPressed" style="-fx-background-color: BROWN;" text="Delete" />
       <Button fx:id="newSongButton" layoutX="706.0" layoutY="47.0" mnemonicParsing="false" onAction="#newSongButtonPressed" style="-fx-background-color: Brown;" text="New" />
       <Button fx:id="editSongButton" layoutX="764.0" layoutY="47.0" mnemonicParsing="false" onAction="#editSongButtonPressed" style="-fx-background-color: Brown;" text="Edit" />
