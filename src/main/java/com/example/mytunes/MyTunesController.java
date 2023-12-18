@@ -152,6 +152,7 @@ public class MyTunesController {
     @FXML
     public void newPlaylistButtonPressed(ActionEvent event) {
         logic.createPlaylist();
+        AllPlaylists.scrollTo(allPlaylists.size()-1);
         updateTables();
     }
     @FXML
@@ -186,6 +187,7 @@ public class MyTunesController {
     @FXML
     public void newSongButtonPressed(ActionEvent event) {
         logic.createSong();
+        AllSongs.scrollTo(allSongs.size()-1);
         updateTables();
     }
     @FXML
