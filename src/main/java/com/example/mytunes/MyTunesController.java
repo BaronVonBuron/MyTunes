@@ -235,6 +235,7 @@ public class MyTunesController {
             logic.addSongToPlaylist(pl, AllSongs.getSelectionModel().getSelectedItem());
             updateTables();
             updateSongsInPlaylist(pl);
+            SongsInPlaylist.scrollTo(songsInPlaylist.size()-1);
         } else System.out.println("Please select a playlist and/or a song");
     }//Når man har valgt en sang og en playliste, og trykker på tilføj, så smides den valgte sang ind i valgte playliste.
 
