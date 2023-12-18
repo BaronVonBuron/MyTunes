@@ -36,6 +36,11 @@ public class MyTunesController {
     private List<Song> songsInPlaylist;
     private List<PathTransition> pathTransitions = new ArrayList<>();
 
+    @FXML
+    private Label timeLeftLabel, timePlayedLabel;
+    @FXML
+    private TableView SongsInPlaylist;
+  
     private Playlist tempPL;
     @FXML
     private ImageView searchButton;
@@ -77,7 +82,7 @@ public class MyTunesController {
             tempPL = (Playlist) allPlaylists.getFirst();
         }
 
-        jmp = new JazzMediaPlayer(logic.getSongs().getFirst(), playTimeSlider, logic.getSongs());
+        jmp = new JazzMediaPlayer(logic.getSongs().getFirst(), playTimeSlider, logic.getSongs(), timeLeftLabel, timePlayedLabel, this);
 
         volumeSlider.setValue(0.25);
         volumeSlider.valueProperty().addListener((observable, oldValue, newValue) -> {
@@ -185,6 +190,7 @@ public class MyTunesController {
     @FXML
     public void newPlaylistButtonPressed(ActionEvent event) {
         logic.createPlaylist();
+        AllPlaylists.scrollTo(allPlaylists.size()-1);
         updateTables();
     }
     @FXML
@@ -220,6 +226,7 @@ public class MyTunesController {
     @FXML
     public void newSongButtonPressed(ActionEvent event) {
         logic.createSong();
+        AllSongs.scrollTo(allSongs.size()-1);
         updateTables();
     }
     @FXML
@@ -267,6 +274,7 @@ public class MyTunesController {
             logic.addSongToPlaylist(pl, AllSongs.getSelectionModel().getSelectedItem());
             updateTables();
             updateSongsInPlaylist(pl);
+            SongsInPlaylist.scrollTo(songsInPlaylist.size()-1);
         } else System.out.println("Please select a playlist and/or a song");
     }//Når man har valgt en sang og en playliste, og trykker på tilføj, så smides den valgte sang ind i valgte playliste.
 
@@ -300,22 +308,15 @@ public class MyTunesController {
         String searchText = searchField.getText().toLowerCase();
 
         List<Song> searchResults = new ArrayList<>();
-        //søger efter title
+
         for (Song song : logic.getSongs()) {
-            if (song.getTitle().toLowerCase().contains(searchText)) {
-                searchResults.add(song);
-            }
-        }
-        //søger efter artist
-        for (Song song : logic.getSongs()) {
-            if (song.getArtist().toLowerCase().contains(searchText)) {
-                searchResults.add(song);
-            }
-        }
-        //søger efter genre
-        for (Song song : logic.getSongs()) {
-            if (song.getGenre().toLowerCase().contains(searchText)) {
-                searchResults.add(song);
+            if (song.getArtist().toLowerCase().contains(searchText)||
+                    song.getTitle().toLowerCase().contains(searchText) ||
+                    song.getGenre().toLowerCase().contains(searchText)) {
+
+                if (!searchResults.contains(song)) {
+                    searchResults.add(song);
+                }
             }
         }
 

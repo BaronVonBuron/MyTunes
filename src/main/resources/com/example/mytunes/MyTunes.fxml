@@ -96,8 +96,8 @@
          </image>
       </ImageView>
       <Circle fx:id="circlePath" fill="#e3e3e300" layoutX="400.0" layoutY="362.0" radius="95.0" stroke="TRANSPARENT" strokeType="INSIDE" />
-      <Label fx:id="timeLeftLabel" layoutX="550.0" layoutY="481.0" text="hej" />
-      <Label fx:id="timePlayedLabel" layoutX="314.0" layoutY="481.0" text="Mojn" />
+      <Label fx:id="timeLeftLabel" layoutX="550.0" layoutY="481.0" text="" textFill="black" />
+      <Label fx:id="timePlayedLabel" layoutX="314.0" layoutY="481.0" text="" textFill="black" />
       <TableView fx:id="SongsInPlaylist" layoutX="328.0" onMouseClicked="#songFromPlaylistClicked" prefHeight="200.0" prefWidth="236.0">
         <columns>
           <TableColumn fx:id="playlistPosition" maxWidth="22.0" minWidth="22.0" prefWidth="22.0" resizable="false" text="Position" />

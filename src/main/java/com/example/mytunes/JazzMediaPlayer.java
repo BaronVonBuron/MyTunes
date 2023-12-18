@@ -1,5 +1,6 @@
 package com.example.mytunes;
 
+import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
@@ -16,14 +17,21 @@ public class JazzMediaPlayer {
     private Song song;
     private List<Song> allSongs;
 
+    private Label timeLeftLabel, timePlayedLabel;
 
-    public JazzMediaPlayer(Song song, Slider playTimeSlider, List<Song> allSongs) {
+    private MyTunesController controller;
+
+
+    public JazzMediaPlayer(Song song, Slider playTimeSlider, List<Song> allSongs, Label timeLeftLabel, Label timePlayedLabel, MyTunesController controller) {
         String uriString = song.getFile().toURI().toString();
         this.song = song;
         media = new Media(uriString);
         this.playTimeSlider = playTimeSlider;
         newMediaPlayer();
         this.allSongs = allSongs;
+        this.timeLeftLabel = timeLeftLabel;
+        this.timePlayedLabel = timePlayedLabel;
+        this.controller = controller;
     }
 
     public void newMediaPlayer(){
@@ -41,10 +49,12 @@ public class JazzMediaPlayer {
             Duration duration = mediaPlayer.getMedia().getDuration();
             this.playTimeSlider.setMax(duration.toSeconds());
         });
-        //lytter til ændringer i afspilningstiden af sange og
+        //lytter til ændringer i afspilningstiden af sange og opdatere labels
         mediaPlayer.currentTimeProperty().addListener((observable, oldValue, newValue) -> {
             if (!this.playTimeSlider.isValueChanging()) {
                 this.playTimeSlider.setValue(newValue.toSeconds());
+                updateTimePlayedLabel(newValue);
+                updateTimeLeftLabel();
             }
         });
 
@@ -54,6 +64,13 @@ public class JazzMediaPlayer {
                 mediaPlayer.seek(Duration.seconds(newValue.doubleValue()));
             }
         });
+
+        mediaPlayer.setOnEndOfMedia(() ->{
+            playNextSong();
+            controller.currentSongPlaying();
+
+        });
+
     }
 
     public MediaPlayer getMediaPlayer() {
@@ -145,4 +162,49 @@ public class JazzMediaPlayer {
             }
         }
     }
+
+    public void updateTimePlayedLabel(Duration currentTime) {
+        if (timePlayedLabel != null){
+            String formattedTime = formatTime(currentTime);
+            timePlayedLabel.setText(formattedTime);
+        }
+    }
+
+    public void updateTimeLeftLabel(){
+        if (timeLeftLabel != null){
+            Duration totalTime = media.getDuration();
+            double currentTime = getCurrentTime();
+            String formatTimeLeft = formatTimeLeft(totalTime, Duration.seconds(currentTime));
+            timeLeftLabel.setText(formatTimeLeft);
+        }
+    }
+
+    private String formatTime(Duration time){
+        int totalSeconds = (int) time.toSeconds();
+        int min = (totalSeconds % 3600) / 60;
+        int sec = totalSeconds % 60;
+
+        return String.format("%02d:%02d", min, sec);
+    }
+
+    private String formatTimeLeft (Duration totalTime, Duration currentTime){
+        int totalSec = (int) totalTime.toSeconds();
+        int currentSec = (int) currentTime.toSeconds();
+        int remainingSec = totalSec - currentSec;
+
+        if (remainingSec < 0 ){
+            remainingSec = 0;
+        }
+
+        int min = (remainingSec % 3600) / 60;
+        int sec = remainingSec % 60;
+
+        return String.format("%02d:%02d", min, sec);
+    }
+
+    public void setOnEndOfMediaHandler(Runnable handler){
+        mediaPlayer.setOnEndOfMedia(handler);
+
+    }
+
 }
