@@ -176,9 +176,11 @@ public class DataAccessObject {
         updateSomething(s);
     }
 
-    public void deleteSongFromPlaylist(int id) {
+    public void deleteSongFromPlaylist(int id, int position, String plName) {
         String s = "DELETE FROM PlaylistSong WHERE song_id = "+id;
         updateSomething(s);
+        String s1 = "UPDATE PlaylistSong SET position = position - 1 WHERE position > "+position+" AND playlist_name = '"+plName+"'";
+        updateSomething(s1);
     }
 
 

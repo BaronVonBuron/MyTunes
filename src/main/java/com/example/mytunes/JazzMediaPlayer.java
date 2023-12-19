@@ -7,6 +7,7 @@ import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaPlayer.Status;
 import javafx.util.Duration;
 
+import java.util.Collections;
 import java.util.List;
 
 public class JazzMediaPlayer {
@@ -21,15 +22,17 @@ public class JazzMediaPlayer {
     private MyTunesController controller;
 
 
-    public JazzMediaPlayer(Slider playTimeSlider, List<Song> allSongs, Label timeLeftLabel, Label timePlayedLabel, MyTunesController controller) {
+    public JazzMediaPlayer(Slider playTimeSlider, Label timeLeftLabel, Label timePlayedLabel, MyTunesController controller, List<Song> allSongs) {
+        this.setAllSongs(allSongs);
         this.playTimeSlider = playTimeSlider;
-        this.allSongs = allSongs;
-        this.song = allSongs.getFirst();
-        this.media = new Media(song.getFile().toURI().toString());
         newMediaPlayer();
         this.timeLeftLabel = timeLeftLabel;
         this.timePlayedLabel = timePlayedLabel;
         this.controller = controller;
+    }
+
+    public void setAllSongs(List<Song> allSongs) {
+        this.allSongs = allSongs;
     }
 
     public void newMediaPlayer(){
@@ -37,38 +40,39 @@ public class JazzMediaPlayer {
             mediaPlayer.dispose();
         }
 
+        if (this.media != null) {
+            mediaPlayer = new MediaPlayer(this.media);
+            mediaPlayer.setOnStalled(() -> {
+                System.out.println("Media player stalled");
+            });
 
-        mediaPlayer = new MediaPlayer(this.media);
-        mediaPlayer.setOnStalled(() -> {
-            System.out.println("Media player stalled");
-        });
+            //sætter max value til antal sekunder af sangenen
+            mediaPlayer.setOnReady(() -> {
+                Duration duration = mediaPlayer.getMedia().getDuration();
+                this.playTimeSlider.setMax(duration.toSeconds());
+            });
+            //lytter til ændringer i afspilningstiden af sange og opdatere labels
+            mediaPlayer.currentTimeProperty().addListener((observable, oldValue, newValue) -> {
+                if (!this.playTimeSlider.isValueChanging()) {
+                    this.playTimeSlider.setValue(newValue.toSeconds());
+                    updateTimePlayedLabel(newValue);
+                    updateTimeLeftLabel();
+                }
+            });
 
-        //sætter max value til antal sekunder af sangenen
-        mediaPlayer.setOnReady(() -> {
-            Duration duration = mediaPlayer.getMedia().getDuration();
-            this.playTimeSlider.setMax(duration.toSeconds());
-        });
-        //lytter til ændringer i afspilningstiden af sange og opdatere labels
-        mediaPlayer.currentTimeProperty().addListener((observable, oldValue, newValue) -> {
-            if (!this.playTimeSlider.isValueChanging()) {
-                this.playTimeSlider.setValue(newValue.toSeconds());
-                updateTimePlayedLabel(newValue);
-                updateTimeLeftLabel();
-            }
-        });
+            //lytter til ændringer hvis man river i slideren
+            this.playTimeSlider.valueProperty().addListener((observable, oldValue, newValue) -> {
+                if (Math.abs(newValue.doubleValue() - mediaPlayer.getCurrentTime().toSeconds()) > 0.5) {
+                    mediaPlayer.seek(Duration.seconds(newValue.doubleValue()));
+                }
+            });
 
-        //lytter til ændringer hvis man river i slideren
-        this.playTimeSlider.valueProperty().addListener((observable, oldValue, newValue) -> {
-            if (Math.abs(newValue.doubleValue() - mediaPlayer.getCurrentTime().toSeconds()) > 0.5) {
-                mediaPlayer.seek(Duration.seconds(newValue.doubleValue()));
-            }
-        });
+            mediaPlayer.setOnEndOfMedia(() -> {
+                playNextSong();
+                controller.currentSongPlaying();
 
-        mediaPlayer.setOnEndOfMedia(() ->{
-            playNextSong();
-            controller.currentSongPlaying();
-
-        });
+            });
+        }
     }
 
     public MediaPlayer getMediaPlayer() {
@@ -142,6 +146,11 @@ public class JazzMediaPlayer {
             this.song = previousSong;
         }
     }
+
+    public List<Song> getAllSongs() {
+        return allSongs;
+    }
+
     public void playNextSong() {
         int currentIndex = allSongs.indexOf(this.song);
 

@@ -13,6 +13,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.media.Media;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Font;
@@ -79,7 +80,7 @@ public class MyTunesController {
             tempPL = (Playlist) allPlaylists.getFirst();
         }
 
-        jmp = new JazzMediaPlayer(playTimeSlider, logic.getSongs(), timeLeftLabel, timePlayedLabel, this);
+        jmp = new JazzMediaPlayer(playTimeSlider, timeLeftLabel, timePlayedLabel, this, logic.getSongs());
 
         volumeSlider.setValue(0.25);
         volumeSlider.valueProperty().addListener((observable, oldValue, newValue) -> {
@@ -89,6 +90,7 @@ public class MyTunesController {
     }
 
     public void updateTables() {
+
         this.allSongs = FXCollections.observableList(logic.getSongs());
         this.allPlaylists = FXCollections.observableList(logic.getPlaylists());
 
@@ -122,11 +124,9 @@ public class MyTunesController {
     private Duration calculatePlaylistDuration(Playlist playlist) {
         List<Song> songs = logic.returnSongsInPlaylist(playlist);
         Duration totalDuration = Duration.ZERO;
-
         for (Song song : songs) {
             totalDuration = totalDuration.add(song.getDuration());
         }
-
         return totalDuration;
     }
 
@@ -155,15 +155,17 @@ public class MyTunesController {
     }
     @FXML
     public void forwardButtonPressed(MouseEvent mouseEvent) {
-        playTimeSlider.setValue(0);
         jmp.playNextSong();
+        playTimeSlider.setValue(0);
         currentSongPlaying();
         System.out.println("NY SANG");
+        System.out.println(jmp.getAllSongs());
     }
 
     @FXML
     public void allSongsSongClicked(MouseEvent mouseEvent){
         if(mouseEvent.getButton().equals(MouseButton.PRIMARY) && mouseEvent.getClickCount() == 2 && (Song) AllSongs.getSelectionModel().getSelectedItem() != null){
+            jmp.setAllSongs(logic.getSongs());
             jmp.setMedia((Song) AllSongs.getSelectionModel().getSelectedItem());
             jmp.setVolume(this.volumeSlider.getValue());
             currentSongPlaying();
@@ -172,6 +174,7 @@ public class MyTunesController {
     @FXML
     public void songFromPlaylistClicked(MouseEvent mouseEvent) {
         if (mouseEvent.getButton().equals(MouseButton.PRIMARY) && mouseEvent.getClickCount() == 2 && (Song) SongsInPlaylist.getSelectionModel().getSelectedItem() != null) {
+            jmp.setAllSongs(songsInPlaylist);
             jmp.setMedia((Song) SongsInPlaylist.getSelectionModel().getSelectedItem());
             jmp.setVolume(this.volumeSlider.getValue());
             currentSongPlaying();
@@ -192,8 +195,10 @@ public class MyTunesController {
     @FXML
     public void newPlaylistButtonPressed(ActionEvent event) {
         logic.createPlaylist();
-        AllPlaylists.scrollTo(allPlaylists.size()-1);
         updateTables();
+        if (!allPlaylists.isEmpty()) {
+            AllPlaylists.scrollTo(allPlaylists.size() - 1);
+        }
     }
     @FXML
     public void editPlaylistButtonPressed(ActionEvent event) {
@@ -233,11 +238,13 @@ public class MyTunesController {
 
     @FXML
     public void deleteSongLWButtonPressed(ActionEvent event) {
-        if (SongsInPlaylist.getSelectionModel().getSelectedItem() != null){
-            logic.deleteSongFromPlaylist((Song) SongsInPlaylist.getSelectionModel().getSelectedItem(), tempPL);
-            updateTables();
-            updateSongsInPlaylist(tempPL);
-        }
+        if(jmp.getSong() != SongsInPlaylist.getSelectionModel().getSelectedItem()) {
+            if (SongsInPlaylist.getSelectionModel().getSelectedItem() != null) {
+                logic.deleteSongFromPlaylist((Song) SongsInPlaylist.getSelectionModel().getSelectedItem(), tempPL);
+                updateTables();
+                updateSongsInPlaylist(tempPL);
+            }
+        }else System.out.println("Sangen der afspilles må ikke slettes");
     }
     @FXML
     public void newSongButtonPressed(ActionEvent event) {
@@ -379,9 +386,6 @@ public class MyTunesController {
                 pT.setInterpolator(Interpolator.LINEAR);
                 pT.play();
                 pathTransitions.add(pT);
-
-
-
         }
     }
 
@@ -400,19 +404,13 @@ public class MyTunesController {
         if (jmp != null){
             jmp.stop();
         }
-        //sætter de 2 sliders til standard værdig
+        //sætter de 2 sliders til standard værdi
         volumeSlider.setValue(0.25);
         playTimeSlider.setValue(0);
-
-        //kalder stop patch transtion metoden
+        //Stopper Pathtransition og opdaterer tabeller
         stopPT();
-
-        //opdatere tabeler
         updateTables();
-
-
-
-        System.out.println("Jazzify blev resetet");
+        System.out.println("Jazzify blev resettet");
     }
 
 }

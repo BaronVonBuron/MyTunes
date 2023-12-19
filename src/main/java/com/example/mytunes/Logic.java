@@ -29,7 +29,6 @@ public class Logic {
 
     public void saveSong(String title, String author, String genre, int duration, String filename){
         if (!title.isEmpty() && !author.isEmpty()) {
-
             dao.saveSong(title, author, genre, duration,  filename);
             this.songs = dao.returnAllSongs();
         }
@@ -50,7 +49,6 @@ public class Logic {
     public void savePlaylist(String name){
         if (!name.isEmpty()) {
             dao.savePlaylist(name);
-            this.playlists = dao.returnAllPlaylists();
         }
     }
 
@@ -58,21 +56,6 @@ public class Logic {
         playlist.addSong(song);
         dao.saveSongToPlaylist(playlist.getName(), song.getID(), playlist.getSongs().size());
         playlist.setNumberOfSongs();
-    }
-
-
-    public void play() {
-        //afspil sang eller pause - alt efter om der kører en sang nu eller ej.
-    }
-
-    public void nextSong() {
-        //stop nuværende sang, og så videre til næste sang på playlisten.
-        //tror bare denne her skal slettes - mvh. Jacob
-    }
-
-    public void replayOrGoBack() {
-        //tilbageknap - replay ved ét tryk, gå til forrige sang ved dobbelttryk. Hvis sangen har kørt i under 5 sekunder kræves kun ét tryk for at gå tilbage.
-        //tror bare denne her skal slettes - mvh. Jacob
     }
 
     public void createPlaylist() {
@@ -83,6 +66,7 @@ public class Logic {
         if (playlistName != null && !playlistName.isEmpty()) {
             System.out.println("Playlist created: " + playlistName);
             savePlaylist(playlistName);
+            this.playlists = dao.returnAllPlaylists();
         }
     }
 
@@ -180,9 +164,10 @@ public class Logic {
     }
 
     public void deleteSongFromPlaylist(Song song, Playlist tempPL) {
-        dao.deleteSongFromPlaylist(song.getID());
+        dao.deleteSongFromPlaylist(song.getID(), song.getPosition(), tempPL.getName());
         tempPL.removeSong(song.getID());
         tempPL.setNumberOfSongs();
+
     }
 
     public void moveSongDownInPlaylist(Song s, Playlist pl) {
